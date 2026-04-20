@@ -1,0 +1,13 @@
+applications:
+  - name: o2c-cap-app
+    memory: 512M
+    instances: 1
+    path: gen/srv
+    buildpacks:
+      - nodejs_buildpack
+    env:
+      CDS_ENV: cf
+    services:
+      - o2c-hana
+      - o2c-xsuaa
+      - o2c-eventmesh

@@ -1,0 +1,26 @@
+{
+  "xsappname": "o2c-app",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    { "name": "$XSAPPNAME.Order.manage", "description": "Manage orders (create/confirm/cancel)" },
+    { "name": "$XSAPPNAME.Invoice.manage", "description": "Manage invoices (generate/view)" },
+    { "name": "$XSAPPNAME.Delivery.manage", "description": "Manage deliveries" }
+  ],
+  "role-templates": [
+    {
+      "name": "OrderManager",
+      "description": "Can create and manage orders",
+      "scope-references": [ "$XSAPPNAME.Order.manage" ]
+    },
+    {
+      "name": "Finance",
+      "description": "Can generate and manage invoices",
+      "scope-references": [ "$XSAPPNAME.Invoice.manage" ]
+    },
+    {
+      "name": "DeliveryAgent",
+      "description": "Can update delivery status",
+      "scope-references": [ "$XSAPPNAME.Delivery.manage" ]
+    }
+  ]
+}
