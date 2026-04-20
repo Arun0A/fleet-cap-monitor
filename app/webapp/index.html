@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>O2C — Order-to-Cash | SAP BTP</title>
+  <title>Fleet — IoT Fleet Monitoring | SAP BTP</title>
   <style>
     /* ── Reset & Base ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -180,127 +180,86 @@
 <header class="shell-header">
   <span class="logo">SAP BTP</span>
   <span style="opacity:.4">|</span>
-  <span class="app-title">Order-to-Cash Management</span>
+  <span class="app-title">Fleet Monitoring</span>
 </header>
 
 <div class="page">
-  <h1 class="page-title">O2C Dashboard</h1>
+  <h1 class="page-title">IoT Fleet Dashboard</h1>
 
-  <!-- O2C Process Steps -->
-  <div class="steps">
-    <div class="step active">1. Sales Order</div>
-    <div class="step">2. Confirm</div>
-    <div class="step">3. Delivery</div>
-    <div class="step">4. Invoice</div>
-    <div class="step">5. Payment</div>
-  </div>
-
-  <!-- KPI Cards -->
   <div class="stat-grid" id="kpiCards">
-    <div class="stat-card"><div class="label">Draft</div><div class="value" id="kpi-Draft">—</div></div>
-    <div class="stat-card"><div class="label">Confirmed</div><div class="value" id="kpi-Confirmed">—</div></div>
-    <div class="stat-card orange"><div class="label">Delivered</div><div class="value" id="kpi-Delivered">—</div></div>
-    <div class="stat-card"><div class="label">Invoiced</div><div class="value" id="kpi-Invoiced">—</div></div>
-    <div class="stat-card green"><div class="label">Paid</div><div class="value" id="kpi-Paid">—</div></div>
-    <div class="stat-card red"><div class="label">Cancelled</div><div class="value" id="kpi-Cancelled">—</div></div>
+    <div class="stat-card"><div class="label">Devices</div><div class="value" id="kpi-devices">—</div></div>
+    <div class="stat-card orange"><div class="label">Active Alerts</div><div class="value" id="kpi-alerts">—</div></div>
+    <div class="stat-card green"><div class="label">Open WorkOrders</div><div class="value" id="kpi-work-open">—</div></div>
+    <div class="stat-card"><div class="label">Completed WorkOrders</div><div class="value" id="kpi-work-done">—</div></div>
   </div>
 
-  <!-- Tab Navigation -->
   <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('orders')">Sales Orders</button>
-    <button class="tab-btn" onclick="showTab('deliveries')">Deliveries</button>
-    <button class="tab-btn" onclick="showTab('invoices')">Invoices</button>
-    <button class="tab-btn" onclick="showTab('master')">Master Data</button>
+    <button class="tab-btn active" onclick="showTab('devices')">Devices</button>
+    <button class="tab-btn" onclick="showTab('alerts')">Alerts</button>
+    <button class="tab-btn" onclick="showTab('work')">Work Orders</button>
   </div>
 
-  <!-- Sales Orders Tab -->
-  <div id="tab-orders">
+  <div id="tab-devices">
     <div class="panel">
       <div class="panel-header">
-        <h2>Sales Orders</h2>
+        <h2>Devices</h2>
         <div class="toolbar">
-          <button class="btn-primary btn-sm" onclick="openNewOrderModal()">+ New Order</button>
-          <button class="btn-secondary btn-sm" onclick="loadOrders()">↻ Refresh</button>
+          <button class="btn-primary btn-sm" onclick="openRegisterDevice()">+ Register Device</button>
+          <button class="btn-secondary btn-sm" onclick="loadDevices()">↻ Refresh</button>
         </div>
       </div>
       <div class="panel-body">
         <div class="tbl-wrap">
           <table>
-            <thead><tr>
-              <th>Order #</th><th>Date</th><th>Customer</th>
-              <th>Net (₹)</th><th>Tax (₹)</th><th>Total (₹)</th>
-              <th>Status</th><th>Actions</th>
-            </tr></thead>
-            <tbody id="ordersBody"><tr><td colspan="8" class="empty">Loading…</td></tr></tbody>
+            <thead><tr><th>ID</th><th>Name</th><th>Model</th><th>Last Seen</th></tr></thead>
+            <tbody id="devicesBody"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
+
+    <div class="panel">
+      <div class="panel-header"><h2>Ingest Telemetry</h2></div>
+      <div class="panel-body">
+        <div class="form-grid">
+          <div class="form-field"><label>Device ID</label><input id="t-device"/></div>
+          <div class="form-field"><label>Metric</label><input id="t-metric" value="temperature"/></div>
+          <div class="form-field"><label>Value</label><input id="t-value" type="number"/></div>
+          <div class="form-field"><label>Threshold (optional)</label><input id="t-threshold" type="number" placeholder="100"/></div>
+        </div>
+        <div class="form-actions"><button class="btn-success" onclick="submitTelemetry()">Ingest</button></div>
+      </div>
+    </div>
   </div>
 
-  <!-- Deliveries Tab -->
-  <div id="tab-deliveries" style="display:none">
+  <div id="tab-alerts" style="display:none">
     <div class="panel">
       <div class="panel-header">
-        <h2>Deliveries</h2>
-        <button class="btn-secondary btn-sm" onclick="loadDeliveries()">↻ Refresh</button>
+        <h2>Alerts</h2>
+        <div class="toolbar"><button class="btn-secondary btn-sm" onclick="loadAlerts()">↻ Refresh</button></div>
       </div>
       <div class="panel-body">
         <div class="tbl-wrap">
           <table>
-            <thead><tr>
-              <th>Delivery ID</th><th>Order #</th><th>Planned Date</th>
-              <th>Actual Date</th><th>Carrier</th><th>Tracking #</th><th>Status</th><th>Actions</th>
-            </tr></thead>
-            <tbody id="deliveriesBody"><tr><td colspan="8" class="empty">Loading…</td></tr></tbody>
+            <thead><tr><th>ID</th><th>Device</th><th>Description</th><th>Created</th><th>Actions</th></tr></thead>
+            <tbody id="alertsBody"><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Invoices Tab -->
-  <div id="tab-invoices" style="display:none">
+  <div id="tab-work" style="display:none">
     <div class="panel">
       <div class="panel-header">
-        <h2>Invoices</h2>
-        <button class="btn-secondary btn-sm" onclick="loadInvoices()">↻ Refresh</button>
+        <h2>Work Orders</h2>
+        <div class="toolbar"><button class="btn-secondary btn-sm" onclick="loadWorkOrders()">↻ Refresh</button></div>
       </div>
       <div class="panel-body">
         <div class="tbl-wrap">
           <table>
-            <thead><tr>
-              <th>Invoice #</th><th>Order #</th><th>Invoice Date</th>
-              <th>Due Date</th><th>Net (₹)</th><th>Tax (₹)</th><th>Total (₹)</th>
-              <th>Paid?</th><th>Actions</th>
-            </tr></thead>
-            <tbody id="invoicesBody"><tr><td colspan="9" class="empty">Loading…</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Master Data Tab -->
-  <div id="tab-master" style="display:none">
-    <div class="panel">
-      <div class="panel-header"><h2>Customers</h2></div>
-      <div class="panel-body">
-        <div class="tbl-wrap">
-          <table>
-            <thead><tr><th>Name</th><th>Email</th><th>City</th><th>Credit Limit (₹)</th></tr></thead>
-            <tbody id="customersBody"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <div class="panel">
-      <div class="panel-header"><h2>Products</h2></div>
-      <div class="panel-body">
-        <div class="tbl-wrap">
-          <table>
-            <thead><tr><th>Code</th><th>Name</th><th>Unit Price (₹)</th><th>GST %</th><th>Stock</th></tr></thead>
-            <tbody id="productsBody"><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
+            <thead><tr><th>Work #</th><th>Device</th><th>Alert</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="workBody"><tr><td colspan="5" class="empty">No work orders</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -345,7 +304,7 @@
 <div id="toast"></div>
 
 <script>
-const API = '/api/o2c';
+const API = '/api/fleet';
 
 // ── Utilities ─────────────────────────────────────────────────────────────
 
@@ -353,7 +312,7 @@ const fmt  = n => n != null ? Number(n).toLocaleString('en-IN', {maximumFraction
 const date = s => s ? new Date(s).toLocaleDateString('en-IN') : '—';
 
 function badge(status) {
-  const cls = status ? status.toLowerCase() : 'draft';
+  const cls = status ? status.toLowerCase().replace(/\s+/g,'-') : 'pending';
   return `<span class="badge badge-${cls}">${status || '—'}</span>`;
 }
 
@@ -376,53 +335,53 @@ async function api(path, opts = {}) {
 
 // ── Tabs ──────────────────────────────────────────────────────────────────
 
-const TABS = ['orders','deliveries','invoices','master'];
+const TABS = ['devices','alerts','work'];
 function showTab(name) {
   TABS.forEach(t => {
-    document.getElementById(`tab-${t}`).style.display = t === name ? '' : 'none';
+    const el = document.getElementById(`tab-${t}`);
+    if (el) el.style.display = t === name ? '' : 'none';
   });
   document.querySelectorAll('.tab-btn').forEach((btn, i) => {
     btn.classList.toggle('active', TABS[i] === name);
   });
-  if (name === 'orders')     loadOrders();
-  if (name === 'deliveries') loadDeliveries();
-  if (name === 'invoices')   loadInvoices();
-  if (name === 'master')     { loadCustomers(); loadProducts(); }
+  if (name === 'devices') loadDevices();
+  if (name === 'alerts')  loadAlerts();
+  if (name === 'work')    loadWorkOrders();
 }
 
 // ── KPI ───────────────────────────────────────────────────────────────────
 
 async function loadKPIs() {
   try {
-    const rows = await api('/getOrderSummary()');
-    ['Draft','Confirmed','Delivered','Invoiced','Paid','Cancelled'].forEach(s => {
-      const el = document.getElementById(`kpi-${s}`);
-      const row = rows.find(r => r.status === s);
-      if (el) el.textContent = row ? row.count : 0;
-    });
+    const rows = await api('/getFleetSummary()');
+    // rows: [{status, count}] - map into our KPI buckets
+    const devices = await api('/Devices');
+    const alerts = await api('/Alerts?$filter=isAlert eq true');
+    const work = await api('/WorkOrders');
+    document.getElementById('kpi-devices').textContent = devices.length || 0;
+    document.getElementById('kpi-alerts').textContent = alerts.length || 0;
+    document.getElementById('kpi-work-open').textContent = (work.filter(w=>w.status==='Open').length) || 0;
+    document.getElementById('kpi-work-done').textContent = (work.filter(w=>w.status==='Completed').length) || 0;
   } catch(e) { console.warn('KPI load failed', e); }
 }
 
 // ── Sales Orders ──────────────────────────────────────────────────────────
 
-async function loadOrders() {
+async function loadDevices() {
   try {
-    const orders = await api('/SalesOrders?$expand=customer&$orderby=createdAt desc');
-    const tbody  = document.getElementById('ordersBody');
-    if (!orders.length) { tbody.innerHTML = `<tr><td colspan="8" class="empty">No orders yet</td></tr>`; return; }
-    tbody.innerHTML = orders.map(o => `
+    const data = await api('/Devices');
+    const tbody = document.getElementById('devicesBody');
+    if (!data.length) { tbody.innerHTML = `<tr><td colspan="4" class="empty">No devices registered</td></tr>`; return; }
+    tbody.innerHTML = data.map(d => `
       <tr>
-        <td><b>${o.orderNumber}</b></td>
-        <td>${date(o.orderDate)}</td>
-        <td>${o.customer?.name || '—'}</td>
-        <td style="text-align:right">${fmt(o.netAmount)}</td>
-        <td style="text-align:right">${fmt(o.taxAmount)}</td>
-        <td style="text-align:right"><b>${fmt(o.totalAmount)}</b></td>
-        <td>${badge(o.status)}</td>
-        <td>${orderActions(o)}</td>
-      </tr>`).join('');
+        <td><code style="font-size:.75rem">${d.ID.slice(0,8)}…</code></td>
+        <td>${d.name || d.deviceId || '—'}</td>
+        <td>${d.model || '—'}</td>
+        <td>${d.lastSeen ? new Date(d.lastSeen).toLocaleString() : '—'}</td>
+      </tr>
+    `).join('');
     loadKPIs();
-  } catch(e) { toast('Failed to load orders: ' + e.message, 'error'); }
+  } catch(e) { toast('Failed to load devices: ' + e.message, 'error'); }
 }
 
 function orderActions(o) {
@@ -467,23 +426,21 @@ async function generateInvoice(orderID) {
 
 // ── Deliveries ────────────────────────────────────────────────────────────
 
-async function loadDeliveries() {
+async function loadAlerts() {
   try {
-    const data  = await api('/Deliveries?$expand=order($expand=customer)&$orderby=createdAt desc');
-    const tbody = document.getElementById('deliveriesBody');
-    if (!data.length) { tbody.innerHTML = `<tr><td colspan="8" class="empty">No deliveries yet</td></tr>`; return; }
-    tbody.innerHTML = data.map(d => `
+    const data = await api('/Alerts?$orderby=createdAt desc');
+    const tbody = document.getElementById('alertsBody');
+    if (!data.length) { tbody.innerHTML = `<tr><td colspan="5" class="empty">No alerts</td></tr>`; return; }
+    tbody.innerHTML = data.map(a => `
       <tr>
-        <td><code style="font-size:.75rem">${d.ID.slice(0,8)}…</code></td>
-        <td>${d.order?.orderNumber || '—'}</td>
-        <td>${date(d.plannedDate)}</td>
-        <td>${date(d.actualDate)}</td>
-        <td>${d.carrier || '—'}</td>
-        <td>${d.trackingNo || '—'}</td>
-        <td>${badge(d.status)}</td>
-        <td>${deliveryActions(d)}</td>
-      </tr>`).join('');
-  } catch(e) { toast('Failed to load deliveries: ' + e.message, 'error'); }
+        <td><code>${a.ID.slice(0,8)}…</code></td>
+        <td>${a.device_ID || '—'}</td>
+        <td>${a.description || '—'}</td>
+        <td>${a.createdAt ? new Date(a.createdAt).toLocaleString() : '—'}</td>
+        <td><button class="btn-sm btn-primary" onclick="createWorkFromAlert('${a.ID}')">Create Work</button></td>
+      </tr>
+    `).join('');
+  } catch(e) { toast('Failed to load alerts: ' + e.message, 'error'); }
 }
 
 function deliveryActions(d) {
@@ -510,24 +467,21 @@ async function markDelivered(id) {
 
 // ── Invoices ──────────────────────────────────────────────────────────────
 
-async function loadInvoices() {
+async function loadWorkOrders() {
   try {
-    const data  = await api('/Invoices?$expand=order&$orderby=createdAt desc');
-    const tbody = document.getElementById('invoicesBody');
-    if (!data.length) { tbody.innerHTML = `<tr><td colspan="9" class="empty">No invoices yet</td></tr>`; return; }
-    tbody.innerHTML = data.map(inv => `
+    const data = await api('/WorkOrders?$orderby=createdAt desc');
+    const tbody = document.getElementById('workBody');
+    if (!data.length) { tbody.innerHTML = `<tr><td colspan="5" class="empty">No work orders</td></tr>`; return; }
+    tbody.innerHTML = data.map(w => `
       <tr>
-        <td><b>${inv.invoiceNumber}</b></td>
-        <td>${inv.order?.orderNumber || '—'}</td>
-        <td>${date(inv.invoiceDate)}</td>
-        <td>${date(inv.dueDate)}</td>
-        <td style="text-align:right">${fmt(inv.netAmount)}</td>
-        <td style="text-align:right">${fmt(inv.taxAmount)}</td>
-        <td style="text-align:right"><b>${fmt(inv.totalAmount)}</b></td>
-        <td>${inv.isPaid ? badge('Paid') : badge('Pending')}</td>
-        <td>${inv.isPaid ? '—' : `<button class="btn-success btn-sm" onclick="recordPayment('${inv.ID}')">Record Payment</button>`}</td>
-      </tr>`).join('');
-  } catch(e) { toast('Failed to load invoices: ' + e.message, 'error'); }
+        <td>${w.workNo || w.ID.slice(0,8)}</td>
+        <td>${w.device_ID || '—'}</td>
+        <td>${w.alert_ID ? w.alert_ID.slice(0,8)+'…' : '—'}</td>
+        <td>${w.status || '—'}</td>
+        <td>${w.status !== 'Completed' ? `<button class="btn-success btn-sm" onclick="completeWork('${w.ID}')">Complete</button>` : '—'}</td>
+      </tr>
+    `).join('');
+  } catch(e) { toast('Failed to load work orders: ' + e.message, 'error'); }
 }
 
 async function recordPayment(id) {
@@ -541,24 +495,40 @@ async function recordPayment(id) {
 
 // ── Master Data ───────────────────────────────────────────────────────────
 
-async function loadCustomers() {
+async function openRegisterDevice() {
+  const id = prompt('Device ID (unique):', 'dev-' + Date.now());
+  if (!id) return;
+  const name = prompt('Device name:', id) || id;
   try {
-    const data  = await api('/Customers');
-    const tbody = document.getElementById('customersBody');
-    tbody.innerHTML = data.map(c => `
-      <tr><td>${c.name}</td><td>${c.email}</td><td>${c.city}</td><td style="text-align:right">₹${fmt(c.creditLimit)}</td></tr>
-    `).join('');
-  } catch(e) {}
+    await api('/Devices', { method: 'POST', body: { ID: undefined, deviceId: id, name } });
+    toast('Device registered'); loadDevices();
+  } catch(e) { toast(e.message, 'error'); }
 }
 
-async function loadProducts() {
+async function submitTelemetry() {
+  const device = document.getElementById('t-device').value;
+  const metric = document.getElementById('t-metric').value;
+  const value  = Number(document.getElementById('t-value').value);
+  const threshold = document.getElementById('t-threshold').value;
+  if (!device || isNaN(value)) { toast('Provide device and numeric value', 'error'); return; }
   try {
-    const data  = await api('/Products');
-    const tbody = document.getElementById('productsBody');
-    tbody.innerHTML = data.map(p => `
-      <tr><td>${p.code}</td><td>${p.name}</td><td style="text-align:right">₹${fmt(p.unitPrice)}</td><td>${p.taxRate}%</td><td>${p.stockQty}</td></tr>
-    `).join('');
-  } catch(e) {}
+    await api('/ingestTelemetry', { method: 'POST', body: { device_ID: device, metric, value: value, threshold: threshold ? Number(threshold) : undefined } });
+    toast('Telemetry ingested'); loadAlerts(); loadKPIs();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function createWorkFromAlert(alertID) {
+  try {
+    await api('/createWorkOrder', { method: 'POST', body: { alertID, description: 'Auto-created from UI' } });
+    toast('Work order created'); loadWorkOrders(); showTab('work');
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function completeWork(id) {
+  try {
+    await api(`/WorkOrders(${id})/FleetService.completeWorkOrder`, { method: 'POST', body: {} });
+    toast('Marked completed'); loadWorkOrders(); loadKPIs();
+  } catch(e) { toast(e.message, 'error'); }
 }
 
 // ── New Order Modal ───────────────────────────────────────────────────────
@@ -635,7 +605,8 @@ function closeModal(id) { document.getElementById(id).classList.remove('open'); 
 
 // ── Init ──────────────────────────────────────────────────────────────────
 
-loadOrders();
+// Init default view
+showTab('devices');
 loadKPIs();
 </script>
 </body>
