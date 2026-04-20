@@ -21,6 +21,46 @@ module.exports = cds.service.impl(async function (srv) {
   const { Customers, Products, SalesOrders, SalesOrderItems, Deliveries, Invoices } =
     srv.entities;
 
+  // ── Security helpers (scope/role checks) ─────────────────────────────────
+  /**
+   * Extract scopes from the request (tries several common properties).
+   * Returns an array of scope strings, or [] if none found.
+   */
+  function _getScopes(req) {
+    try {
+      // Common places where decoded JWT scopes may live
+      const candidate = req.user || req.auth && req.auth.decoded || req._ && req._.user || {};
+      if (!candidate) return [];
+      if (Array.isArray(candidate.scope)) return candidate.scope;
+      if (Array.isArray(candidate.scopes)) return candidate.scopes;
+      if (typeof candidate.scope === 'string') return candidate.scope.split(/\s+/).filter(Boolean);
+      if (typeof candidate.scopes === 'string') return candidate.scopes.split(/\s+/).filter(Boolean);
+    } catch (e) {
+      /* ignore */
+    }
+    return [];
+  }
+
+  /**
+   * Check whether the request has a scope that ends with the given suffix,
+   * e.g. check `_hasScope(req, 'Order.manage')` will match `o2c-app.Order.manage`.
+   * In local/dev (when not running on CF) this helper permits access if no scopes
+   * are present to avoid blocking offline development.
+   */
+  function _hasScope(req, suffix) {
+    const scopes = _getScopes(req);
+    if (!scopes || !scopes.length) {
+      // Allow when running locally (no CF environment detected)
+      if (!process.env.VCAP_SERVICES && process.env.CDS_ENV !== 'cf') {
+        // eslint-disable-next-line no-console
+        console.log('[SEC] No scopes found - development mode bypass for', suffix);
+        return true;
+      }
+      return false;
+    }
+    return scopes.some(s => s === suffix || s.endsWith('.' + suffix));
+  }
+
   // ── Helpers ──────────────────────────────────────────────────────────────
 
   /** Generate a human-readable order number like SO-20250001 */
@@ -127,6 +167,7 @@ module.exports = cds.service.impl(async function (srv) {
    *  - Customer credit limit must not be exceeded.
    */
   srv.on('confirmOrder', 'SalesOrders', async (req) => {
+    if (!_hasScope(req, 'Order.manage')) return req.error(403, 'Forbidden: requires Order.manage scope');
     const orderID = req.params[0]?.ID ?? req.params[0];
     const order   = await SELECT.one.from(SalesOrders, orderID)
                           .columns('*', 'customer.creditLimit as creditLimit',
@@ -159,6 +200,7 @@ module.exports = cds.service.impl(async function (srv) {
    * Returns stock if the order was already confirmed.
    */
   srv.on('cancelOrder', 'SalesOrders', async (req) => {
+    if (!_hasScope(req, 'Order.manage')) return req.error(403, 'Forbidden: requires Order.manage scope');
     const orderID = req.params[0]?.ID ?? req.params[0];
     const order   = await SELECT.one.from(SalesOrders, orderID);
 
@@ -186,6 +228,7 @@ module.exports = cds.service.impl(async function (srv) {
    * Create a Delivery document for a Confirmed Sales Order.
    */
   srv.on('createDelivery', async (req) => {
+    if (!_hasScope(req, 'Delivery.manage')) return req.error(403, 'Forbidden: requires Delivery.manage scope');
     const { orderID, plannedDate, carrier } = req.data;
     const order = await SELECT.one.from(SalesOrders, orderID);
 
@@ -213,6 +256,7 @@ module.exports = cds.service.impl(async function (srv) {
   // ── Bound Action: Deliveries / markShipped ────────────────────────────────
 
   srv.on('markShipped', 'Deliveries', async (req) => {
+    if (!_hasScope(req, 'Delivery.manage')) return req.error(403, 'Forbidden: requires Delivery.manage scope');
     const deliveryID = req.params[0]?.ID ?? req.params[0];
     const { trackingNo, carrier } = req.data;
     const delivery = await SELECT.one.from(Deliveries, deliveryID);
@@ -229,6 +273,7 @@ module.exports = cds.service.impl(async function (srv) {
   // ── Bound Action: Deliveries / markDelivered ──────────────────────────────
 
   srv.on('markDelivered', 'Deliveries', async (req) => {
+    if (!_hasScope(req, 'Delivery.manage')) return req.error(403, 'Forbidden: requires Delivery.manage scope');
     const deliveryID = req.params[0]?.ID ?? req.params[0];
     const delivery   = await SELECT.one.from(Deliveries, deliveryID);
 
@@ -249,6 +294,7 @@ module.exports = cds.service.impl(async function (srv) {
    * Copies amounts from the order; due date = invoice date + 30 days.
    */
   srv.on('generateInvoice', async (req) => {
+    if (!_hasScope(req, 'Invoice.manage')) return req.error(403, 'Forbidden: requires Invoice.manage scope');
     const { orderID } = req.data;
     const order = await SELECT.one.from(SalesOrders, orderID);
 
@@ -284,6 +330,7 @@ module.exports = cds.service.impl(async function (srv) {
    * Marks the invoice paid and moves the Sales Order to 'Paid'.
    */
   srv.on('recordPayment', 'Invoices', async (req) => {
+    if (!_hasScope(req, 'Invoice.manage')) return req.error(403, 'Forbidden: requires Invoice.manage scope');
     const invoiceID  = req.params[0]?.ID ?? req.params[0];
     const { paymentRef } = req.data;
     const invoice    = await SELECT.one.from(Invoices, invoiceID);
