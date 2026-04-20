@@ -1,12 +1,12 @@
 \documentclass[a4paper,12pt]{article}
 
-% ── Fonts ─────────────────────────────────────────────────────────────────────
+% Fonts
 \usepackage[T1]{fontenc}
-\usepackage[scaled=1.0]{helvet}      % Arial-equivalent (Helvetica)
+\usepackage[scaled=1.0]{helvet}
 \renewcommand{\familydefault}{\sfdefault}
-\usepackage{microtype}               % Better typography
+\usepackage{microtype}
 
-% ── Page geometry ─────────────────────────────────────────────────────────────
+% Page geometry
 \usepackage[
   a4paper,
   top=25mm, bottom=25mm,
@@ -14,8 +14,8 @@
   headheight=14pt
 ]{geometry}
 
-% ── Essential packages ─────────────────────────────────────────────────────────
-\usepackage{ragged2e}                % \justifying
+% Packages
+\usepackage{ragged2e}
 \usepackage{setspace}
 \usepackage{parskip}
 \usepackage{graphicx}
@@ -31,7 +31,7 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
 
-% ── Colors ────────────────────────────────────────────────────────────────────
+% Colors
 \definecolor{sapblue}{RGB}{10, 110, 209}
 \definecolor{darkgray}{RGB}{50, 54, 58}
 \definecolor{lightgray}{RGB}{242, 242, 242}
@@ -39,7 +39,7 @@
 \definecolor{accentorange}{RGB}{233, 115, 12}
 \definecolor{boxbg}{RGB}{235, 244, 255}
 
-% ── Section formatting  (15pt heading / 14pt subheading) ──────────────────────
+% Section formatting
 \titleformat{\section}
   {\fontsize{15}{18}\bfseries\color{sapblue}}
   {\thesection.}{0.5em}{}
@@ -50,24 +50,23 @@
   {\fontsize{12}{15}\bfseries\color{darkgray}}
   {}{0em}{}
 
-% ── Page style ─────────────────────────────────────────────────────────────────
+% Page style
 \pagestyle{fancy}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0.4pt}
-\fancyhead[L]{\small\color{darkgray}Order-to-Cash (O2C) — SAP BTP Capstone Project}
+\fancyhead[L]{\small\color{darkgray}Fleet Monitoring Application --- SAP BTP Capstone Project}
 \fancyhead[R]{\small\color{darkgray}KIIT}
-\fancyfoot[R]{\small\thepage}          % page number bottom-right
+\fancyfoot[R]{\small\thepage}
 
-% ── Hyperlinks ─────────────────────────────────────────────────────────────────
+% Hyperlinks
 \hypersetup{
   colorlinks=true,
   linkcolor=sapblue,
   urlcolor=sapblue,
-  pdfauthor={KIIT Student},
-  pdftitle={O2C SAP BTP Capstone Project Report}
+  pdfauthor={Arun Bhattacharya},
+  pdftitle={Fleet Monitoring SAP BTP Capstone Project Report}
 }
 
-% ── Justified text ──────────────────────────────────────────────────────────────
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt}
 
@@ -75,9 +74,7 @@
 \justifying
 \setstretch{1.15}
 
-% ══════════════════════════════════════════════════════════════════════════════
-%  TITLE PAGE
-% ══════════════════════════════════════════════════════════════════════════════
+% Title Page
 \thispagestyle{empty}
 
 \begin{center}
@@ -87,8 +84,8 @@
   \vspace{6mm}
 
   {\fontsize{22}{28}\bfseries\color{sapblue}
-    Order-to-Cash (O2C)\\[4pt]
-    SAP Cloud Application Programming Model}
+    Fleet Monitoring and Maintenance Automation\\[4pt]
+    using SAP Cloud Application Programming Model}
   \vspace{4mm}
 
   {\fontsize{15}{20}\bfseries\color{darkgray} Capstone Project Report}
@@ -98,92 +95,89 @@
   \vspace{12mm}
 
   \begin{tabular}{rl}
-    \textbf{Program}     & SAP Business Technology Platform (BTP) \\[4pt]
-    \textbf{Institute}   & KIIT \\[4pt]
+    \textbf{Submitted By} & Arun Bhattacharya \\[4pt]
+    \textbf{Roll Number}  & 23053266 \\[4pt]
+    \textbf{College}      & Kalinga Institute of Industrial Technology \\[4pt]
+    \textbf{Course}       & SAP BTP \\[4pt]
+    \textbf{Program}      & SAP Business Technology Platform (BTP) \\[4pt]
     \textbf{Submitted On} & \today \\
   \end{tabular}
 
   \vspace{16mm}
 
-  % Process flow visual on title page
   \begin{tikzpicture}[
       box/.style={
         rectangle, rounded corners=4pt,
-        minimum width=1.8cm, minimum height=0.8cm,
+        minimum width=2cm, minimum height=0.8cm,
         draw=sapblue, fill=boxbg, font=\small\bfseries, text=darkgray,
         align=center
       },
       arr/.style={-{Stealth[length=5pt]}, thick, color=sapblue}
   ]
-    \node[box] (so)  {Sales\\Order};
-    \node[box] (cf)  [right=0.6cm of so] {Confirm};
-    \node[box] (del) [right=0.6cm of cf] {Deliver};
-    \node[box] (inv) [right=0.6cm of del] {Invoice};
-    \node[box] (pay) [right=0.6cm of inv] {Payment};
+    \node[box] (dev)  {Register\\Device};
+    \node[box] (tel)  [right=0.6cm of dev] {Ingest\\Telemetry};
+    \node[box] (alt)  [right=0.6cm of tel] {Generate\\Alert};
+    \node[box] (wo)   [right=0.6cm of alt] {Create\\Work Order};
+    \node[box] (done) [right=0.6cm of wo] {Assign \&\\Complete};
 
-    \draw[arr] (so)  -- (cf);
-    \draw[arr] (cf)  -- (del);
-    \draw[arr] (del) -- (inv);
-    \draw[arr] (inv) -- (pay);
+    \draw[arr] (dev)  -- (tel);
+    \draw[arr] (tel)  -- (alt);
+    \draw[arr] (alt)  -- (wo);
+    \draw[arr] (wo)   -- (done);
   \end{tikzpicture}
 
   \vspace{6mm}
   {\small\color{darkgray}\itshape
-    ``Automating the complete sales lifecycle — from customer order to cash receipt''}
+    ``Monitoring fleet health in real time and converting abnormal telemetry into actionable maintenance workflows''}
 \end{center}
 
 \newpage
 \setcounter{page}{1}
 
-% ══════════════════════════════════════════════════════════════════════════════
-%  1. PROBLEM STATEMENT
-% ══════════════════════════════════════════════════════════════════════════════
 \section{Problem Statement}
 
-In modern enterprises, the \textbf{Order-to-Cash (O2C)} process spans multiple departments — sales, warehouse, logistics, and finance — often resulting in disconnected workflows, manual handoffs, and delayed revenue recognition. Without a unified digital system, organizations face challenges such as:
+In modern fleet operations, organizations rely on connected devices and sensors to monitor the health of vehicles, engines, and field assets. However, telemetry data is often collected separately from maintenance operations. This leads to multiple operational issues:
 
 \begin{itemize}[leftmargin=1.5em, itemsep=3pt]
-  \item Inability to track an order's real-time status across departments.
-  \item Manual, error-prone invoice generation leading to billing disputes.
-  \item No automated credit-limit checks before order confirmation, increasing financial risk.
-  \item Stock inconsistencies caused by uncoordinated order confirmation and warehouse operations.
-  \item Fragmented payment records making cash flow visibility difficult for finance teams.
+  \item Telemetry data is stored but not converted into actionable maintenance tasks.
+  \item Operators do not have a single dashboard to monitor devices, alerts, and work orders.
+  \item Manual alert handling causes delays in maintenance response.
+  \item Work orders may be duplicated or lost when alerts are handled informally.
+  \item There is limited visibility into how many devices are active, how many alerts exist, and how many maintenance jobs are still open.
 \end{itemize}
 
-The goal of this project is to design and develop a \textbf{cloud-native O2C application on SAP BTP} using the SAP Cloud Application Programming (CAP) model. The system must enforce the complete business process from sales order creation through to payment collection, applying business rules at every stage — all exposed via a standards-compliant OData v4 API and a browser-based dashboard.
+The objective of this project is to build a cloud-native \textbf{Fleet Monitoring and Maintenance Automation} application on \textbf{SAP BTP} using the \textbf{SAP Cloud Application Programming Model (CAP)}. The system should accept telemetry readings, detect threshold breaches, create alerts, generate work orders, support technician assignment and completion, and expose the full flow through OData services and a dashboard UI.
 
-% ══════════════════════════════════════════════════════════════════════════════
-%  2. SOLUTION AND FEATURES
-% ══════════════════════════════════════════════════════════════════════════════
 \section{Solution and Features}
 
 \subsection{Solution Overview}
 
-The application implements the O2C cycle as a five-stage stateful workflow. Each stage is guarded by business rule validations and exposed as an OData action. The backend is built using \textbf{SAP CAP (Node.js)} with SQLite for local development and is designed for deployment to \textbf{SAP HANA Cloud} on BTP. The frontend is a single-page Fiori-styled dashboard that provides a complete operational view.
+The implemented application models the complete operational flow for fleet monitoring. A device is first registered in the system. Telemetry readings are then ingested for that device. When the value crosses a threshold, an alert is created automatically and a corresponding work order is opened. The work order can then be assigned to a technician and marked as completed after maintenance is done.
+
+The backend is implemented using \textbf{SAP CAP with Node.js}. Local development uses \textbf{SQLite}, while the project structure remains portable for deployment on \textbf{SAP BTP}. The frontend is a lightweight HTML and JavaScript dashboard that provides a direct operational view of devices, alerts, and work orders.
 
 \subsection{Key Features}
 
 \begin{itemize}[leftmargin=1.5em, itemsep=4pt]
-  \item \textbf{Sales Order Management} — Create, view, and manage sales orders with automatic order-number generation, multi-line item support, and real-time total calculation.
+  \item \textbf{Device Registration} --- Users can register fleet devices with a unique device ID, device name, and model. Duplicate device IDs are rejected at the service layer.
 
-  \item \textbf{Line Item Pricing Engine} — Unit prices and GST rates are auto-populated from the product master at the time of order creation. Per-line discount support with automatic net, tax, and total computations.
+  \item \textbf{Telemetry Ingestion} --- The application accepts telemetry readings such as temperature, pressure, or battery values through an unbound CAP action. Each telemetry event is persisted in the database.
 
-  \item \textbf{Order Confirmation with Business Rules} — Confirmation validates that the order has at least one line item, and performs a \textit{credit limit check} against the customer master before allowing the transition from \texttt{Draft} to \texttt{Confirmed}. Stock is atomically deducted on confirmation.
+  \item \textbf{Automatic Threshold Detection} --- Telemetry values are checked against a threshold. If the threshold is breached, the backend automatically creates an alert.
 
-  \item \textbf{Delivery Lifecycle} — A delivery document is created for Confirmed orders and progresses through \texttt{Pending} → \texttt{Shipped} (with tracking number) → \texttt{Delivered} stages.
+  \item \textbf{Alert-Driven Work Order Creation} --- On alert creation, the application triggers an in-process event flow and generates a maintenance work order. Duplicate work orders for the same alert are prevented.
 
-  \item \textbf{Automated Invoice Generation} — Invoices are generated for Delivered orders. Invoice amounts are derived directly from the sales order; due date is set to 30 days from the invoice date. Duplicate invoice prevention is enforced.
+  \item \textbf{Technician Management} --- Technicians can be maintained as a separate master entity and linked to work orders during assignment.
 
-  \item \textbf{Payment Recording} — Finance teams record payment references against open invoices. On payment, the parent sales order is automatically moved to \texttt{Paid} status.
+  \item \textbf{Work Order Lifecycle Management} --- Work orders support a clear lifecycle: \texttt{Open} to \texttt{Assigned} to \texttt{Completed}. Completion also records the closing timestamp.
 
-  \item \textbf{Order Cancellation with Stock Reversal} — Draft and Confirmed orders can be cancelled. Stock that was deducted on confirmation is automatically returned to inventory.
+  \item \textbf{Fleet Summary Reporting} --- A summary function groups work orders by status, enabling dashboard KPI views such as open jobs and completed jobs.
 
-  \item \textbf{Dashboard KPIs} — A real-time summary groups orders by status with count and revenue aggregation, giving management instant visibility into pipeline health.
+  \item \textbf{Browser Dashboard} --- A single-page dashboard provides live visibility into registered devices, generated alerts, and maintenance work orders.
+
+  \item \textbf{Automated Integration Testing} --- The backend includes tests for registration, duplicate prevention, low telemetry, high telemetry, automatic alert creation, automatic work-order creation, manual work-order handling, assignment, completion, and fleet summary reporting.
 \end{itemize}
 
-% ══════════════════════════════════════════════════════════════════════════════
-%  3. SYSTEM ARCHITECTURE
-% ══════════════════════════════════════════════════════════════════════════════
 \section{System Architecture}
 
 \subsection{High-Level Architecture}
@@ -201,12 +195,12 @@ The application implements the O2C cycle as a five-stage stateful workflow. Each
     arr/.style={-{Stealth[length=5pt]}, thick, color=sapblue}
 ]
   \node[box]   (ui)    {Browser UI\\(HTML / JS)};
-  \node[box]   (cap)   [right=2cm of ui] {SAP CAP\\(Node.js)\\OData v4};
-  \node[box]   (db)    [right=2cm of cap] {SQLite\\(dev)\\HANA (prod)};
-  \node[cloud] (btp)   [below=1.2cm of cap] {SAP BTP\\Cloud Foundry};
+  \node[box]   (cap)   [right=2cm of ui] {SAP CAP\\(Node.js)\\OData v4 Service};
+  \node[box]   (db)    [right=2cm of cap] {SQLite\\(Local Dev)};
+  \node[cloud] (btp)   [below=1.2cm of cap] {SAP BTP\\Cloud Foundry Ready};
 
-  \draw[arr] (ui)  -- node[above,font=\scriptsize]{OData v4} (cap);
-  \draw[arr] (cap) -- node[above,font=\scriptsize]{CDS ORM} (db);
+  \draw[arr] (ui)  -- node[above,font=\scriptsize]{OData / JSON} (cap);
+  \draw[arr] (cap) -- node[above,font=\scriptsize]{CDS Persistence} (db);
   \draw[arr,dashed] (cap) -- (btp);
 
   \begin{pgfonlayer}{background}
@@ -216,43 +210,40 @@ The application implements the O2C cycle as a five-stage stateful workflow. Each
 \end{tikzpicture}
 \end{center}
 
-\subsection{Backend Layer Design (CAP Layered Architecture)}
+\subsection{Backend Layer Design}
 
-The backend follows the standard CAP layered approach:
+The project follows the standard CAP layered architecture:
 
 \begin{center}
 \begin{tabular}{>{\bfseries\color{sapblue}}p{3.5cm} p{9cm}}
 \toprule
 Layer & Responsibility \\
 \midrule
-\texttt{db/schema.cds}     & Entity definitions, relationships, type enums \\
-\texttt{srv/*.cds}         & OData service exposure, action/function signatures \\
-\texttt{srv/*.js}          & Custom event handlers — business logic, validation \\
-\texttt{db/data/*.csv}     & Seed data for SQLite (Customers, Products) \\
-\texttt{app/webapp/}       & Fiori-styled HTML dashboard \\
-\texttt{test/}             & Jest end-to-end test suite \\
+\texttt{db/schema.cds}     & Defines entities, associations, and status fields for the fleet domain \\
+\texttt{srv/o2c-service.cds} & Exposes the FleetService and declares actions/functions \\
+\texttt{srv/o2c-service.js} & Implements business rules for registration, assignment, completion, and summary logic \\
+\texttt{srv/telemetry.js}  & Encapsulates telemetry ingestion, threshold evaluation, and alert creation \\
+\texttt{srv/event-handlers.js} & Handles AlertCreated events and work-order generation \\
+\texttt{app/webapp/}       & Dashboard UI for device, alert, and work-order monitoring \\
+\texttt{test/}             & Automated integration tests using Jest and \texttt{cds.test} \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\subsection{Data Model (Entity Relationship)}
+\subsection{Data Model}
 
-Six core entities model the O2C process:
+The application is built around five main entities:
 
 \begin{itemize}[leftmargin=1.5em, itemsep=2pt]
-  \item \texttt{Customers} — master record with credit limit
-  \item \texttt{Products} — material master with pricing and GST rate
-  \item \texttt{SalesOrders} — central document linking all stages; carries lifecycle status
-  \item \texttt{SalesOrderItems} — line items with auto-calculated pricing
-  \item \texttt{Deliveries} — one-to-one with a Sales Order; tracks shipment
-  \item \texttt{Invoices} — one-to-one with a Sales Order; tracks payment
+  \item \texttt{Devices} --- registered fleet devices or monitored assets
+  \item \texttt{Telemetry} --- raw telemetry readings associated with devices
+  \item \texttt{Alerts} --- generated when telemetry crosses a threshold
+  \item \texttt{Technicians} --- maintenance personnel who can be assigned work
+  \item \texttt{WorkOrders} --- maintenance tasks raised from alerts
 \end{itemize}
 
-\newpage
+Associations connect telemetry to devices, alerts to telemetry and devices, and work orders to alerts, devices, and technicians. This produces a traceable operational chain from signal detection to maintenance closure.
 
-% ══════════════════════════════════════════════════════════════════════════════
-%  4. TECH STACK
-% ══════════════════════════════════════════════════════════════════════════════
 \section{Technology Stack}
 
 \begin{center}
@@ -261,128 +252,174 @@ Six core entities model the O2C process:
 Component & Technology & Version \\
 \midrule
 CAP Framework & SAP Cloud Application Programming Model & 7.x \\
-Runtime & Node.js & 18 LTS+ \\
-Data Modelling & CDS (Core Data Services) & — \\
-OData & Auto-generated OData v4 service & v4 \\
-Database (Dev) & SQLite (in-memory) & — \\
-Database (Prod) & SAP HANA Cloud & — \\
-Frontend & HTML5, Vanilla JS, Fiori Design System CSS & — \\
-Testing & Jest + \texttt{cds.test} + Supertest & 29.x \\
-Version Control & Git / GitHub & — \\
-Deployment & SAP BTP Cloud Foundry & — \\
+Runtime & Node.js & 18+ / 20 in dev shell \\
+Data Modelling & CDS (Core Data Services) & --- \\
+Service Protocol & OData v4 generated by CAP & v4 \\
+Database (Dev) & SQLite & --- \\
+Frontend & HTML5, CSS, Vanilla JavaScript & --- \\
+Testing & Jest + \texttt{cds.test} & 29.x \\
+Dependency Shell & Nix Flake Dev Environment & --- \\
+Version Control & Git / GitHub & --- \\
+Target Platform & SAP BTP Cloud Foundry & --- \\
 \bottomrule
 \end{tabularx}
 \end{center}
 
-% ══════════════════════════════════════════════════════════════════════════════
-%  5. O2C PROCESS FLOW (Screenshots / Functional Walkthrough)
-% ══════════════════════════════════════════════════════════════════════════════
 \section{Process Flow Walkthrough}
 
-The following diagram illustrates the complete O2C lifecycle with enforced state transitions and the business rules applied at each step:
+The following process describes the operational workflow implemented in the project:
 
 \begin{center}
 \begin{tikzpicture}[
     state/.style={
       rectangle, rounded corners=6pt, draw=sapblue, fill=boxbg,
-      minimum width=2.8cm, minimum height=1cm, align=center,
+      minimum width=2.6cm, minimum height=1cm, align=center,
       font=\small\bfseries, text=darkgray
     },
-    rule/.style={font=\scriptsize\itshape, color=accentorange, align=center, text width=2.5cm},
+    rule/.style={font=\scriptsize\itshape, color=accentorange, align=center, text width=2.4cm},
     arr/.style={-{Stealth[length=5pt]}, thick, color=sapblue}
 ]
-  \node[state]              (draft)     {Draft};
-  \node[state, right=1.8cm of draft]   (confirmed) {Confirmed};
-  \node[state, right=1.8cm of confirmed] (delivered) {Delivered};
-  \node[state, right=1.8cm of delivered] (invoiced)  {Invoiced};
-  \node[state, right=1.8cm of invoiced]  (paid)      {Paid};
+  \node[state]              (device)     {Register\\Device};
+  \node[state, right=1.6cm of device]   (telemetry) {Ingest\\Telemetry};
+  \node[state, right=1.6cm of telemetry] (alert) {Create\\Alert};
+  \node[state, right=1.6cm of alert] (work)  {Open\\Work Order};
+  \node[state, right=1.6cm of work]  (complete)      {Assign /\\Complete};
 
-  % Arrows
-  \draw[arr] (draft) -- (confirmed);
-  \draw[arr] (confirmed) -- (delivered);
-  \draw[arr] (delivered) -- (invoiced);
-  \draw[arr] (invoiced) -- (paid);
+  \draw[arr] (device) -- (telemetry);
+  \draw[arr] (telemetry) -- (alert);
+  \draw[arr] (alert) -- (work);
+  \draw[arr] (work) -- (complete);
 
-  % Rule labels above arrows
-  \node[rule, above=0.3cm of draft, xshift=0.9cm]
-    {Items check\\Credit limit};
-  \node[rule, above=0.3cm of confirmed, xshift=0.9cm]
-    {Stock deduction\\Delivery created};
-  \node[rule, above=0.3cm of delivered, xshift=0.9cm]
-    {GST invoice\\Due date: +30d};
-  \node[rule, above=0.3cm of invoiced, xshift=0.9cm]
-    {Payment ref\\recorded};
-
-  % Cancel path
-  \draw[arr, dashed, color=red!60]
-    (confirmed) to[bend right=35]
-    node[below, font=\scriptsize\color{red!70}, align=center]{Cancel\\\&\ restore stock}
-    (draft);
+  \node[rule, above=0.3cm of telemetry] {Updates\\device lastSeen};
+  \node[rule, above=0.3cm of alert] {Threshold\\evaluation};
+  \node[rule, above=0.3cm of work] {Duplicate prevention\\for same alert};
+  \node[rule, above=0.3cm of complete] {Technician assignment\\and closure};
 \end{tikzpicture}
 \end{center}
 
-\textbf{Step-by-step flow:}
+\textbf{Step-by-step implementation flow:}
 
 \begin{enumerate}[leftmargin=1.8em, itemsep=4pt]
-  \item \textbf{Sales Order (Draft)} — A sales representative creates the order, selects the customer, and adds line items. Prices and GST auto-fill from the product master.
-  \item \textbf{Confirm Order} — The system checks credit limit and item presence, then deducts stock. Status moves to \texttt{Confirmed}.
-  \item \textbf{Create Delivery} — Warehouse creates a delivery document with planned date and carrier. Status moves to \texttt{Delivered} on the sales order.
-  \item \textbf{Generate Invoice} — Finance generates the invoice; amounts are copied from the order. Due date is set to 30 days ahead.
-  \item \textbf{Record Payment} — Finance records the payment reference (bank transfer / cheque). Invoice is marked paid; order status becomes \texttt{Paid}.
+  \item \textbf{Register Device} --- A new fleet device is created using the \texttt{registerDevice} action. The backend validates uniqueness of the device ID.
+
+  \item \textbf{Ingest Telemetry} --- A telemetry reading is submitted through the \texttt{ingestTelemetry} action with device, metric, value, and optional threshold information.
+
+  \item \textbf{Alert Generation} --- The telemetry helper evaluates the numeric value. If the threshold is exceeded, an alert is stored automatically.
+
+  \item \textbf{Automatic Work Order Creation} --- The alert triggers event handling logic, which creates a work order in \texttt{Open} state. If a work order already exists for that alert, the system reuses it instead of duplicating it.
+
+  \item \textbf{Assignment and Completion} --- Operators can assign a technician to the work order and later mark it completed using bound OData actions on the \texttt{WorkOrders} entity.
 \end{enumerate}
 
-% ══════════════════════════════════════════════════════════════════════════════
-%  6. UNIQUE POINTS
-% ══════════════════════════════════════════════════════════════════════════════
+\section{Implemented APIs and Business Logic}
+
+\subsection{Main Service Endpoints}
+
+The FleetService exposes the following important operations:
+
+\begin{itemize}[leftmargin=1.5em, itemsep=3pt]
+  \item \texttt{POST /api/fleet/registerDevice}
+  \item \texttt{POST /api/fleet/ingestTelemetry}
+  \item \texttt{POST /api/fleet/createWorkOrder}
+  \item \texttt{POST /api/fleet/WorkOrders(\{id\})/FleetService.assignWorkOrder}
+  \item \texttt{POST /api/fleet/WorkOrders(\{id\})/FleetService.completeWorkOrder}
+  \item \texttt{GET /api/fleet/getFleetSummary()}
+\end{itemize}
+
+\subsection{Implemented Business Rules}
+
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+  \item Device IDs must be unique.
+  \item Telemetry ingestion updates the device's \texttt{lastSeen} timestamp.
+  \item High telemetry values generate alerts automatically.
+  \item Alerts create work orders automatically through event-driven handling.
+  \item Duplicate work orders for the same alert are prevented.
+  \item Work orders can be assigned only to valid technicians.
+  \item Completion updates the work-order status and records closure time.
+  \item Fleet summary aggregates work orders by status for dashboard KPIs.
+\end{itemize}
+
+\section{Frontend Dashboard}
+
+The frontend is implemented as a lightweight browser dashboard in \texttt{app/webapp/index.html}. It contains:
+
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+  \item KPI cards for devices, active alerts, open work orders, and completed work orders
+  \item A \textbf{Devices} tab to view registered devices and create new ones
+  \item A telemetry ingestion panel for submitting metric readings
+  \item An \textbf{Alerts} tab to monitor threshold breaches
+  \item A \textbf{Work Orders} tab to track and complete maintenance tasks
+\end{itemize}
+
+The UI directly consumes the CAP OData service and reflects backend state changes immediately after telemetry ingestion and work-order completion.
+
+\section{Testing and Validation}
+
+To validate correctness, the project contains an automated integration test suite. The tests are executed using \texttt{Jest} together with the CAP \texttt{cds.test} harness and an in-memory SQLite profile.
+
+The current automated tests cover:
+
+\begin{itemize}[leftmargin=1.5em, itemsep=3pt]
+  \item successful device registration
+  \item duplicate device rejection
+  \item telemetry below threshold without alert creation
+  \item telemetry above threshold with alert generation
+  \item automatic work-order creation from alerts
+  \item manual work-order creation without duplication
+  \item technician assignment
+  \item work-order completion
+  \item fleet summary reporting
+\end{itemize}
+
+This test coverage ensures that both normal and exceptional flows are verified at the service level.
+
 \section{Unique Points}
 
 \begin{enumerate}[leftmargin=1.8em, itemsep=5pt]
-  \item \textbf{OData v4 Native API} — The entire application is exposed as a fully standards-compliant OData v4 service. This means it can be consumed directly by SAP Fiori Elements, Power BI, or any OData-capable client without any additional API layer.
+  \item \textbf{Telemetry-to-Action Flow} --- The project does not stop at storing sensor data. It converts operational signals into alerts and then into maintenance work orders.
 
-  \item \textbf{Strict State Machine Enforcement} — Every stage transition is validated server-side. There is no way to, for instance, invoice an order that has not been delivered — the business process integrity is guaranteed by the service layer, not just the UI.
+  \item \textbf{Event-Driven Logic Inside CAP} --- The application uses in-process event handling to react to alert creation and automate work-order generation, which makes the design extensible for future messaging integration.
 
-  \item \textbf{Atomic Stock Management} — Stock deduction (on confirmation) and restoration (on cancellation) happen within the same database transaction, eliminating the possibility of stock inconsistencies under concurrent access.
+  \item \textbf{Operational Dashboard Simplicity} --- A simple frontend is used instead of a large framework, allowing focus on backend CAP logic while still demonstrating a full working UI.
 
-  \item \textbf{GST-Aware Pricing Engine} — Each line item carries its own tax rate (sourced from the product master), and tax amounts are computed and stored separately from net amounts — making the invoices audit-ready and GST-compliant.
+  \item \textbf{Local Reproducibility through Nix} --- The project is supported by a Nix flake development shell, which helps keep Node.js, npm, SQLite, and CAP tooling consistent.
 
-  \item \textbf{CAP Portability} — By switching one configuration entry in \texttt{package.json} from \texttt{sqlite} to \texttt{hana}, the entire application is ready to deploy against SAP HANA Cloud on BTP without changing a single line of business logic.
+  \item \textbf{Clear Domain Traceability} --- The data model provides a direct trace from device to telemetry to alert to work order to technician handling, which is useful for both monitoring and auditability.
 
-  \item \textbf{Comprehensive Test Coverage} — The project includes 15 automated tests covering all happy paths, error paths, and duplicate-prevention checks, using the official \texttt{cds.test} harness.
+  \item \textbf{Automated Integration Testing} --- The application includes a passing suite of isolated integration tests, demonstrating that the implemented workflow is not only visible in the UI but also verified in code.
 \end{enumerate}
 
-% ══════════════════════════════════════════════════════════════════════════════
-%  7. FUTURE IMPROVEMENTS
-% ══════════════════════════════════════════════════════════════════════════════
 \section{Future Improvements}
 
 \begin{itemize}[leftmargin=1.5em, itemsep=4pt]
-  \item \textbf{SAP Fiori Elements UI} — Replace the hand-coded HTML dashboard with a metadata-driven Fiori Elements application (List Report + Object Page floor plan) for a native SAP UX experience.
+  \item \textbf{SAP Event Mesh Integration} --- Publish alert events to SAP Event Mesh so that external worker services or downstream systems can react asynchronously.
 
-  \item \textbf{SAP Event Mesh Integration} — Publish O2C lifecycle events (order confirmed, invoice generated) to SAP Event Mesh, enabling other BTP services (e.g., an analytics microservice) to react asynchronously.
+  \item \textbf{Role-Based Access Control} --- Integrate XSUAA roles such as Operator, Technician, and Supervisor to secure different actions by user type.
 
-  \item \textbf{Role-Based Access Control} — Implement SAP BTP XSUAA authentication and define roles such as \textit{SalesRep}, \textit{Warehouse}, and \textit{Finance} so that each persona only sees and performs actions relevant to their stage.
+  \item \textbf{Technician Assignment UI} --- Extend the dashboard to support selecting technicians directly from the browser instead of relying only on API actions.
 
-  \item \textbf{PDF Invoice Generation} — Integrate a PDF generation service to produce formatted, downloadable invoice PDFs directly from the application.
+  \item \textbf{Device Health Analytics} --- Add historical charts and trend analysis for telemetry values such as temperature and pressure over time.
 
-  \item \textbf{Multi-Currency Support} — Extend the pricing model to support transactions in multiple currencies with exchange-rate lookups from an SAP currency conversion service.
+  \item \textbf{Notification Integration} --- Trigger email or alert notifications when a critical alert or overdue work order is detected.
 
-  \item \textbf{SAP Analytics Cloud Dashboard} — Expose O2C KPI data to SAP Analytics Cloud (SAC) for executive-level revenue dashboards and trend analysis.
+  \item \textbf{HANA Cloud Deployment} --- Move from SQLite-based local development to SAP HANA Cloud deployment for production-scale persistence.
 
-  \item \textbf{Email Notifications} — Trigger email alerts at key milestones (order confirmed, invoice due soon, payment overdue) via SAP BTP Alert Notification Service.
+  \item \textbf{Predictive Maintenance} --- Introduce scoring models or ML-based anomaly detection instead of fixed thresholds for generating alerts.
 \end{itemize}
 
-% ══════════════════════════════════════════════════════════════════════════════
-%  8. CONCLUSION
-% ══════════════════════════════════════════════════════════════════════════════
 \section{Conclusion}
 
-This project demonstrates a production-ready implementation of the Order-to-Cash business process using SAP's modern cloud-native tooling. By leveraging the SAP CAP framework, the application achieves a clean separation of concerns — the data model, service contract, and business logic are each maintained in dedicated, independently testable files. The result is a maintainable, portable, and extensible application that can serve as a foundation for a real enterprise O2C system on SAP BTP.
+This project demonstrates a complete SAP CAP implementation for a fleet monitoring use case. It combines master data management, telemetry ingestion, threshold evaluation, alert generation, event-driven work-order automation, technician workflow handling, reporting, and browser-based visibility in one coherent application.
+
+From an SAP BTP learning perspective, the project shows how CAP can be used not only for CRUD-based enterprise apps but also for operational monitoring scenarios that require business rules, events, and process automation. The result is a practical, extensible, and well-tested application that can serve as a base for more advanced fleet operations on SAP BTP.
 
 \vspace{8mm}
 \begin{mdframed}[backgroundcolor=lightgray, roundcorner=4pt, linewidth=0pt, innertopmargin=8pt, innerbottommargin=8pt]
-\textbf{GitHub Repository:} \texttt{https://github.com/<your-username>/o2c-cap-project}\\
-\textbf{Submission Date:} \today \\
-\textbf{Deadline:} April 21, 2026 | 11:59 PM
+\textbf{Student Name:} Arun Bhattacharya\\
+\textbf{Roll Number:} 23053266\\
+\textbf{College:} Kalinga Institute of Industrial Technology\\
+\textbf{Course:} SAP BTP\\
+\textbf{Submission Date:} \today
 \end{mdframed}
 
 \end{document}
