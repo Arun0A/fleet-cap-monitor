@@ -15,6 +15,9 @@ module.exports = cds.service.impl(async function (srv) {
   const eventHandlers = require('./event-handlers');
   eventHandlers.register(srv);
 
+  // telemetry helper
+  const telemetry = require('./telemetry');
+
   // ── Security helpers (scope/role checks) ─────────────────────────────────
   /**
    * Extract scopes from the request (tries several common properties).
@@ -85,7 +88,16 @@ module.exports = cds.service.impl(async function (srv) {
   });
 
   // Unbound Action: ingestTelemetry (keeps event/alert logic above)
-  // (handler already defined earlier)
+  srv.on('ingestTelemetry', async (req) => {
+    if (!_hasScope(req, 'Telemetry.ingest')) return req.error(403, 'Forbidden: requires Telemetry.ingest scope');
+    try {
+      const result = await telemetry.ingestTelemetry(req.data, srv);
+      return result;
+    } catch (e) {
+      console.error('[srv] ingestTelemetry error', e && e.message);
+      return req.error(500, e && e.message);
+    }
+  });
 
   // Fleet: assign a work order to a technician
   srv.on('assignWorkOrder', 'WorkOrders', async (req) => {
