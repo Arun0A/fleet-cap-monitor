@@ -1,4 +1,5 @@
 const cds = require('@sap/cds');
+const { INSERT, UPDATE } = cds.ql;
 
 /**
  * Telemetry processing helper
@@ -20,11 +21,13 @@ module.exports = {
     const deviceId = data.device_ID || data.deviceID;
 
     const now = new Date().toISOString();
+    const numericValue = Number(data.value);
+    const threshold = data.threshold != null ? Number(data.threshold) : 100;
     const telemetry = {
       ID: cds.utils && cds.utils.uuid ? cds.utils.uuid() : ('' + Date.now()),
       device_ID: deviceId,
       metric: data.metric || 'unknown',
-      value: data.value,
+      value: numericValue,
       recordedAt: now
     };
 
@@ -38,13 +41,12 @@ module.exports = {
     }
 
     // threshold detection: either provided threshold or default
-    const threshold = typeof data.threshold === 'number' ? data.threshold : 100;
-    if (typeof data.value === 'number' && data.value > threshold) {
+    if (Number.isFinite(numericValue) && numericValue > threshold) {
       const alert = {
         ID: cds.utils && cds.utils.uuid ? cds.utils.uuid() : ('' + (Date.now() + 1)),
         telemetry_ID: telemetry.ID,
         device_ID: telemetry.device_ID,
-        description: data.description || `Value ${data.value} exceeded threshold ${threshold}`,
+        description: data.description || `Value ${numericValue} exceeded threshold ${threshold}`,
         isAlert: true,
         createdAt: now
       };

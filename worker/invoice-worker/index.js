@@ -1,4 +1,5 @@
 const cds = require('@sap/cds');
+const { INSERT, SELECT } = cds.ql;
 
 // By default the worker is disabled in the demo to avoid sqlite file-sharing issues.
 // Set the environment variable `ALLOW_WORKER=1` to enable worker behavior.

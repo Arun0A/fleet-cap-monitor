@@ -1,15 +1,15 @@
-# Order-to-Cash (O2C) — SAP CAP Capstone Project
+# Fleet Monitoring — SAP CAP Capstone Project
 
 ## Overview
-A full-stack **Order-to-Cash** business process application built on the **SAP Cloud Application Programming (CAP)** model for the SAP BTP platform.
+A full-stack **fleet monitoring** application built on the **SAP Cloud Application Programming (CAP)** model for SAP BTP.
 
-The application covers the complete O2C cycle:
+The application covers the fleet flow:
 ```
-Sales Order (Draft)
-    → Confirm Order
-    → Create Delivery → Mark Shipped → Mark Delivered
-    → Generate Invoice
-    → Record Payment  ✓ Paid
+Register Device
+    → Ingest Telemetry
+    → Create Alert on threshold breach
+    → Auto-create / manage Work Orders
+    → Complete maintenance lifecycle
 ```
 
 ## Technology Stack
@@ -18,32 +18,22 @@ Sales Order (Draft)
 | Runtime | Node.js 18+ |
 | Framework | SAP CAP (CDS) |
 | OData | CAP auto-generated OData v4 |
-| Database (dev) | SQLite (in-memory) |
+| Database (dev) | SQLite |
 | Database (prod) | SAP HANA Cloud |
 | Frontend | HTML5 / Vanilla JS (Fiori-styled) |
 | Testing | Jest + cds.test |
 
 ## Project Structure
 ```
-o2c-cap-project/
-├── db/
-│   ├── schema.cds           # All entity definitions (Customers, Products,
-│   │                        #   SalesOrders, SalesOrderItems, Deliveries,
-│   │                        #   Invoices)
-│   └── data/
-│       ├── o2c.Customers.csv  # Seed data — 5 customers
-│       └── o2c.Products.csv   # Seed data — 6 products
-├── srv/
-│   ├── o2c-service.cds      # OData service + action definitions
-│   └── o2c-service.js       # Business logic (event handlers)
-├── app/
-│   └── webapp/
-│       └── index.html       # SAP Fiori-styled dashboard UI
-├── test/
-│   └── o2c.test.js          # Full end-to-end Jest test suite
-├── package.json
-├── .cdsrc.json
-└── README.md
+fleet-cap-project/
+├── db/schema.cds              # Fleet entities: devices, telemetry, alerts, work orders
+├── srv/o2c-service.cds        # Fleet OData service + actions
+├── srv/o2c-service.js         # Fleet business logic
+├── srv/telemetry.js           # Telemetry ingestion helper
+├── srv/event-handlers.js      # Alert -> work order event handling
+├── app/webapp/index.html      # Fleet dashboard UI
+├── test/*.test.js             # Integration tests for fleet flows
+└── package.json
 ```
 
 ## Prerequisites
@@ -62,7 +52,7 @@ npm install
 npm run watch
 
 # 3. Open in browser
-#    OData service:  http://localhost:4004/api/o2c
+#    OData service:  http://localhost:4004/api/fleet
 #    UI Dashboard:   http://localhost:4004/app/webapp/index.html
 #    CDS Metadata:   http://localhost:4004/$metadata
 ```
@@ -71,31 +61,28 @@ npm run watch
 ```bash
 npm test
 ```
-Tests cover the full O2C lifecycle: order creation → confirmation → delivery → invoicing → payment.
+Tests cover device registration, telemetry ingestion, alert generation, work-order management, and fleet summary reporting.
 
 ## API Reference (OData v4)
 
 ### Entities
 | Entity | URL |
 |---|---|
-| Customers | `GET /api/o2c/Customers` |
-| Products | `GET /api/o2c/Products` |
-| Sales Orders | `GET /api/o2c/SalesOrders` |
-| Sales Order Items | `GET /api/o2c/SalesOrderItems` |
-| Deliveries | `GET /api/o2c/Deliveries` |
-| Invoices | `GET /api/o2c/Invoices` |
+| Devices | `GET /api/fleet/Devices` |
+| Telemetry | `GET /api/fleet/Telemetry` |
+| Alerts | `GET /api/fleet/Alerts` |
+| Technicians | `GET /api/fleet/Technicians` |
+| Work Orders | `GET /api/fleet/WorkOrders` |
 
 ### Actions
 | Action | Method | URL |
 |---|---|---|
-| Confirm Order | POST | `/api/o2c/SalesOrders({id})/O2CService.confirmOrder` |
-| Cancel Order | POST | `/api/o2c/SalesOrders({id})/O2CService.cancelOrder` |
-| Create Delivery | POST | `/api/o2c/createDelivery` |
-| Mark Shipped | POST | `/api/o2c/Deliveries({id})/O2CService.markShipped` |
-| Mark Delivered | POST | `/api/o2c/Deliveries({id})/O2CService.markDelivered` |
-| Generate Invoice | POST | `/api/o2c/generateInvoice` |
-| Record Payment | POST | `/api/o2c/Invoices({id})/O2CService.recordPayment` |
-| Order Summary | GET | `/api/o2c/getOrderSummary()` |
+| Register Device | POST | `/api/fleet/registerDevice` |
+| Ingest Telemetry | POST | `/api/fleet/ingestTelemetry` |
+| Create Work Order | POST | `/api/fleet/createWorkOrder` |
+| Assign Work Order | POST | `/api/fleet/WorkOrders({id})/FleetService.assignWorkOrder` |
+| Complete Work Order | POST | `/api/fleet/WorkOrders({id})/FleetService.completeWorkOrder` |
+| Fleet Summary | GET | `/api/fleet/getFleetSummary()` |
 
 ## Deployment to SAP BTP
 1. Install Cloud Foundry CLI and MBT tool
@@ -103,13 +90,11 @@ Tests cover the full O2C lifecycle: order creation → confirmation → delivery
 3. `mbt build && cf deploy mta_archives/o2c-cap-project_1.0.0.mtar`
 
 ## Business Rules Implemented
-- Orders must have at least one line item before confirmation
-- Credit limit check on order confirmation
-- Stock is automatically deducted on confirmation, restored on cancellation
-- Duplicate delivery / invoice prevention
-- Full status transition validation (Draft → Confirmed → Delivered → Invoiced → Paid)
-- Line item pricing auto-populated from product master
-- GST (18%) auto-calculated per line
+- Duplicate device IDs are rejected
+- Telemetry updates `lastSeen` on the device
+- Threshold breaches create alerts automatically
+- Alerts create work orders without duplication
+- Work orders can be assigned and completed through bound actions
 
 ## Author
 KIIT Capstone Project — SAP BTP Program

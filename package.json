@@ -1,35 +1,46 @@
 {
-  "name": "o2c-cap-project",
+  "name": "fleet-cap-project",
   "version": "1.0.0",
-  "description": "Order-to-Cash (O2C) SAP CAP Application — KIIT Capstone Project",
+  "description": "Fleet monitoring SAP CAP application — KIIT Capstone Project",
   "main": "srv/o2c-service.js",
   "scripts": {
-    "start":   "cds-serve",
-    "watch":   "cds watch",
-    "build":   "cds build",
-    "test":    "jest --testTimeout=30000",
-    "deploy":  "cds deploy --to sqlite:./dev.db && cds-serve"
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "build": "cds build",
+    "test": "jest --runInBand --forceExit --testTimeout=30000",
+    "deploy": "cds deploy --to sqlite:dev.db && cds-serve"
   },
   "dependencies": {
-    "@sap/cds":     "^7",
-    "express":      "^4"
+    "@sap/cds": "^7",
+    "express": "^4"
   },
   "devDependencies": {
-    "@sap/cds-dk":  "^7",
-    "jest":         "^29",
-    "supertest":    "^6",
-    "sqlite3":      "^5"
+    "@sap/cds-dk": "^7",
+    "axios": "^1.15.1",
+    "jest": "^29",
+    "sqlite3": "^5",
+    "supertest": "^6"
   },
   "jest": {
     "testEnvironment": "node",
-    "testTimeout":     30000
+    "testTimeout": 30000
   },
   "cds": {
     "requires": {
       "db": {
         "kind": "sqlite",
         "credentials": {
-          "url": "sqlite:./dev.db"
+          "url": "./dev.db"
+        }
+      }
+    },
+    "[test]": {
+      "requires": {
+        "db": {
+          "kind": "sqlite",
+          "credentials": {
+            "url": ":memory:"
+          }
         }
       }
     },

@@ -6,6 +6,7 @@
  */
 
 const cds = require('@sap/cds');
+const { INSERT, SELECT, UPDATE } = cds.ql;
 
 module.exports = cds.service.impl(async function (srv) {
 
@@ -82,8 +83,13 @@ module.exports = cds.service.impl(async function (srv) {
   srv.on('registerDevice', async (req) => {
     if (!_hasScope(req, 'Device.manage')) return req.error(403, 'Forbidden: requires Device.manage scope');
     const { deviceId, name, model } = req.data;
+    if (!deviceId) return req.error(400, 'deviceId is required');
+
+    const existing = await SELECT.one.from(Devices).where({ deviceId });
+    if (existing) return req.error(409, `Device '${deviceId}' already exists`);
+
     const device = { ID: cds.utils.uuid(), deviceId, name, model };
-    await INSERT.into(Devices).entries(device);
+    await cds.run(INSERT.into(Devices).entries(device));
     return SELECT.one.from(Devices, device.ID);
   });
 
@@ -106,7 +112,7 @@ module.exports = cds.service.impl(async function (srv) {
     const { technicianID } = req.data;
     const tech = await SELECT.one.from(Technicians, technicianID);
     if (!tech) return req.error(404, 'Technician not found');
-    await UPDATE(WorkOrders, workID).with({ assignedTo_ID: technicianID, status: 'Assigned' });
+    await cds.run(UPDATE(WorkOrders, workID).with({ assignedTo_ID: technicianID, status: 'Assigned' }));
     return SELECT.one.from(WorkOrders, workID);
   });
 
@@ -114,7 +120,7 @@ module.exports = cds.service.impl(async function (srv) {
   srv.on('completeWorkOrder', 'WorkOrders', async (req) => {
     if (!_hasScope(req, 'WorkOrder.manage')) return req.error(403, 'Forbidden: requires WorkOrder.manage scope');
     const workID = req.params[0]?.ID ?? req.params[0];
-    await UPDATE(WorkOrders, workID).with({ status: 'Completed', closedAt: new Date().toISOString() });
+    await cds.run(UPDATE(WorkOrders, workID).with({ status: 'Completed', closedAt: new Date().toISOString() }));
     return SELECT.one.from(WorkOrders, workID);
   });
 
@@ -122,8 +128,23 @@ module.exports = cds.service.impl(async function (srv) {
   srv.on('createWorkOrder', async (req) => {
     if (!_hasScope(req, 'WorkOrder.manage')) return req.error(403, 'Forbidden: requires WorkOrder.manage scope');
     const { alertID, description } = req.data;
-    const work = { ID: cds.utils.uuid(), workNo: generateWorkNo(), alert_ID: alertID, description, status: 'Open' };
-    await INSERT.into(WorkOrders).entries(work);
+    if (!alertID) return req.error(400, 'alertID is required');
+
+    const alert = await SELECT.one.from(Alerts, alertID);
+    if (!alert) return req.error(404, 'Alert not found');
+
+    const existing = await SELECT.one.from(WorkOrders).where({ alert_ID: alertID });
+    if (existing) return existing;
+
+    const work = {
+      ID: cds.utils.uuid(),
+      workNo: generateWorkNo(),
+      device_ID: alert.device_ID,
+      alert_ID: alertID,
+      description: description || alert.description || 'Auto-generated from alert',
+      status: 'Open'
+    };
+    await cds.run(INSERT.into(WorkOrders).entries(work));
     return SELECT.one.from(WorkOrders, work.ID);
   });
 
@@ -134,4 +155,3 @@ module.exports = cds.service.impl(async function (srv) {
   });
 
 });
-

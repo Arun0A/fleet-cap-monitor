@@ -39,7 +39,7 @@ entity Technicians {
 entity Telemetry {
   key ID            : UUID;
       device         : Association to Devices not null;
-      ts             : Timestamp @cds.on.insert: $now;
+      recordedAt     : Timestamp @cds.on.insert: $now;
       metric         : String(50);   // e.g., 'battery', 'engine_temp'
       value          : Decimal(18,4);
       unit           : String(10);
@@ -50,8 +50,10 @@ entity Telemetry {
 entity Alerts {
   key ID            : UUID;
       telemetry      : Association to Telemetry not null;
+      device         : Association to Devices not null;
       severity       : String(10) default 'medium';
       description    : String(500);
+      isAlert        : Boolean default true;
       createdAt      : Timestamp @cds.on.insert: $now;
 }
 
@@ -71,4 +73,3 @@ entity WorkOrders {
       createdAt     : Timestamp @cds.on.insert: $now;
       closedAt      : Timestamp;
 }
-

@@ -1,4 +1,5 @@
 const cds = require('@sap/cds');
+const { INSERT, SELECT } = cds.ql;
 
 /**
  * Event handlers for O2C domain events.
@@ -11,7 +12,7 @@ module.exports = {
     // In-process subscription: other parts of the app can emit 'AlertCreated'
     srv.on('AlertCreated', async (msg) => {
       try {
-        await module.exports.handleAlertCreated(msg, srv);
+        await module.exports.handleAlertCreated(msg?.data || msg, srv);
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error('[EVENT] error handling AlertCreated', e && e.message);
@@ -28,7 +29,8 @@ module.exports = {
    * payload: { alertID, deviceID }
    */
   handleAlertCreated: async function (payload, srv) {
-    const { Alerts, WorkOrders } = srv.entities;
+    const Alerts = srv.entities?.Alerts || 'fleet.Alerts';
+    const WorkOrders = srv.entities?.WorkOrders || 'fleet.WorkOrders';
 
     const { alertID, deviceID } = payload || {};
     if (!alertID) throw new Error('AlertCreated payload missing alertID');
@@ -49,7 +51,7 @@ module.exports = {
       description: alert.description || 'Auto-generated from alert'
     };
 
-    await INSERT.into(WorkOrders).entries(work);
+    await cds.run(INSERT.into(WorkOrders).entries(work));
     return work;
   }
 };

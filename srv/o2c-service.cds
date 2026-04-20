@@ -39,7 +39,9 @@ service FleetService @(path: '/api/fleet') {
     deviceID : String,
     metric   : String,
     value    : Decimal,
-    unit     : String
+    unit     : String,
+    threshold: Decimal,
+    description: String
   ) returns Telemetry;
 
   /** Create a work order from an alert (unbound) */
@@ -52,9 +54,8 @@ service FleetService @(path: '/api/fleet') {
   // ── Analytics Queries ─────────────────────────────────────────────────────
 
   /** Summary view for dashboard */
-  function getOrderSummary() returns array of {
+  function getFleetSummary() returns array of {
     status       : String;
     count        : Integer;
-    totalRevenue : Decimal;
   };
 }

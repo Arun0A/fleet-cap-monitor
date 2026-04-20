@@ -222,7 +222,7 @@
       <div class="panel-header"><h2>Ingest Telemetry</h2></div>
       <div class="panel-body">
         <div class="form-grid">
-          <div class="form-field"><label>Device ID</label><input id="t-device"/></div>
+          <div class="form-field"><label>Device</label><select id="t-device"></select></div>
           <div class="form-field"><label>Metric</label><input id="t-metric" value="temperature"/></div>
           <div class="form-field"><label>Value</label><input id="t-value" type="number"/></div>
           <div class="form-field"><label>Threshold (optional)</label><input id="t-threshold" type="number" placeholder="100"/></div>
@@ -262,39 +262,6 @@
             <tbody id="workBody"><tr><td colspan="5" class="empty">No work orders</td></tr></tbody>
           </table>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── Modal: New Order ─────────────────────────────────────────── -->
-<div class="modal-overlay" id="modalNewOrder">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>Create Sales Order</h3>
-      <button class="modal-close" onclick="closeModal('modalNewOrder')">×</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-grid">
-        <div class="form-field">
-          <label>Customer *</label>
-          <select id="fCustomer"></select>
-        </div>
-        <div class="form-field">
-          <label>Order Date *</label>
-          <input type="date" id="fOrderDate"/>
-        </div>
-        <div class="form-field" style="grid-column:span 2">
-          <label>Notes</label>
-          <textarea id="fNotes" rows="2"></textarea>
-        </div>
-      </div>
-      <h4 style="margin:1rem 0 .5rem; font-size:.9rem;">Line Items</h4>
-      <div id="lineItems"></div>
-      <button class="btn-secondary btn-sm" style="margin-top:.5rem" onclick="addLineItem()">+ Add Item</button>
-      <div class="form-actions">
-        <button class="btn-primary" onclick="createOrder()">Create Order</button>
-        <button class="btn-secondary" onclick="closeModal('modalNewOrder')">Cancel</button>
       </div>
     </div>
   </div>
@@ -365,13 +332,16 @@ async function loadKPIs() {
   } catch(e) { console.warn('KPI load failed', e); }
 }
 
-// ── Sales Orders ──────────────────────────────────────────────────────────
-
 async function loadDevices() {
   try {
     const data = await api('/Devices');
     const tbody = document.getElementById('devicesBody');
-    if (!data.length) { tbody.innerHTML = `<tr><td colspan="4" class="empty">No devices registered</td></tr>`; return; }
+    const selector = document.getElementById('t-device');
+    if (!data.length) {
+      tbody.innerHTML = `<tr><td colspan="4" class="empty">No devices registered</td></tr>`;
+      selector.innerHTML = '<option value="">Register a device first</option>';
+      return;
+    }
     tbody.innerHTML = data.map(d => `
       <tr>
         <td><code style="font-size:.75rem">${d.ID.slice(0,8)}…</code></td>
@@ -380,51 +350,10 @@ async function loadDevices() {
         <td>${d.lastSeen ? new Date(d.lastSeen).toLocaleString() : '—'}</td>
       </tr>
     `).join('');
+    selector.innerHTML = data.map(d => `<option value="${d.ID}">${d.name || d.deviceId} (${d.deviceId})</option>`).join('');
     loadKPIs();
   } catch(e) { toast('Failed to load devices: ' + e.message, 'error'); }
 }
-
-function orderActions(o) {
-  const id = o.ID;
-  let btns = '';
-  if (o.status === 'Draft')     btns += `<button class="btn-success btn-sm" onclick="confirmOrder('${id}')">Confirm</button> <button class="btn-danger btn-sm" onclick="cancelOrder('${id}')">Cancel</button>`;
-  if (o.status === 'Confirmed') btns += `<button class="btn-primary btn-sm" onclick="createDelivery('${id}')">Create Delivery</button> <button class="btn-danger btn-sm" onclick="cancelOrder('${id}')">Cancel</button>`;
-  if (o.status === 'Delivered') btns += `<button class="btn-primary btn-sm" onclick="generateInvoice('${id}')">Generate Invoice</button>`;
-  return btns || '—';
-}
-
-async function confirmOrder(id) {
-  try {
-    await api(`/SalesOrders(${id})/O2CService.confirmOrder`, { method: 'POST', body: {} });
-    toast('Order confirmed!'); loadOrders();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-async function cancelOrder(id) {
-  if (!confirm('Cancel this order?')) return;
-  try {
-    await api(`/SalesOrders(${id})/O2CService.cancelOrder`, { method: 'POST', body: {} });
-    toast('Order cancelled.'); loadOrders();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-async function createDelivery(orderID) {
-  const carrier = prompt('Carrier name (optional):', 'Standard Courier');
-  if (carrier === null) return;
-  try {
-    await api('/createDelivery', { method: 'POST', body: { orderID, carrier } });
-    toast('Delivery created!'); loadOrders(); showTab('deliveries');
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-async function generateInvoice(orderID) {
-  try {
-    await api('/generateInvoice', { method: 'POST', body: { orderID } });
-    toast('Invoice generated!'); loadOrders(); showTab('invoices');
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-// ── Deliveries ────────────────────────────────────────────────────────────
 
 async function loadAlerts() {
   try {
@@ -443,30 +372,6 @@ async function loadAlerts() {
   } catch(e) { toast('Failed to load alerts: ' + e.message, 'error'); }
 }
 
-function deliveryActions(d) {
-  if (d.status === 'Pending')  return `<button class="btn-primary btn-sm" onclick="markShipped('${d.ID}')">Mark Shipped</button>`;
-  if (d.status === 'Shipped')  return `<button class="btn-success btn-sm" onclick="markDelivered('${d.ID}')">Mark Delivered</button>`;
-  return '—';
-}
-
-async function markShipped(id) {
-  const trackingNo = prompt('Enter tracking number:', 'TRK-' + Date.now());
-  if (trackingNo === null) return;
-  try {
-    await api(`/Deliveries(${id})/O2CService.markShipped`, { method: 'POST', body: { trackingNo, carrier: 'BlueDart' } });
-    toast('Marked as Shipped!'); loadDeliveries();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-async function markDelivered(id) {
-  try {
-    await api(`/Deliveries(${id})/O2CService.markDelivered`, { method: 'POST', body: {} });
-    toast('Marked as Delivered!'); loadDeliveries();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-// ── Invoices ──────────────────────────────────────────────────────────────
-
 async function loadWorkOrders() {
   try {
     const data = await api('/WorkOrders?$orderby=createdAt desc');
@@ -484,23 +389,15 @@ async function loadWorkOrders() {
   } catch(e) { toast('Failed to load work orders: ' + e.message, 'error'); }
 }
 
-async function recordPayment(id) {
-  const ref = prompt('Payment reference (bank transfer, cheque no., etc.):', '');
-  if (ref === null) return;
-  try {
-    await api(`/Invoices(${id})/O2CService.recordPayment`, { method: 'POST', body: { paymentRef: ref } });
-    toast('Payment recorded!'); loadInvoices(); loadKPIs();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
 // ── Master Data ───────────────────────────────────────────────────────────
 
 async function openRegisterDevice() {
   const id = prompt('Device ID (unique):', 'dev-' + Date.now());
   if (!id) return;
   const name = prompt('Device name:', id) || id;
+  const model = prompt('Device model:', 'Generic Sensor') || 'Generic Sensor';
   try {
-    await api('/Devices', { method: 'POST', body: { ID: undefined, deviceId: id, name } });
+    await api('/registerDevice', { method: 'POST', body: { deviceId: id, name, model } });
     toast('Device registered'); loadDevices();
   } catch(e) { toast(e.message, 'error'); }
 }
@@ -512,8 +409,12 @@ async function submitTelemetry() {
   const threshold = document.getElementById('t-threshold').value;
   if (!device || isNaN(value)) { toast('Provide device and numeric value', 'error'); return; }
   try {
-    await api('/ingestTelemetry', { method: 'POST', body: { device_ID: device, metric, value: value, threshold: threshold ? Number(threshold) : undefined } });
-    toast('Telemetry ingested'); loadAlerts(); loadKPIs();
+    await api('/ingestTelemetry', { method: 'POST', body: { deviceID: device, metric, value, threshold: threshold ? Number(threshold) : undefined } });
+    toast('Telemetry ingested');
+    loadDevices();
+    loadAlerts();
+    loadWorkOrders();
+    loadKPIs();
   } catch(e) { toast(e.message, 'error'); }
 }
 
@@ -527,81 +428,11 @@ async function createWorkFromAlert(alertID) {
 async function completeWork(id) {
   try {
     await api(`/WorkOrders(${id})/FleetService.completeWorkOrder`, { method: 'POST', body: {} });
-    toast('Marked completed'); loadWorkOrders(); loadKPIs();
+    toast('Marked completed');
+    loadWorkOrders();
+    loadKPIs();
   } catch(e) { toast(e.message, 'error'); }
 }
-
-// ── New Order Modal ───────────────────────────────────────────────────────
-
-let customers = [], products = [];
-
-async function openNewOrderModal() {
-  try {
-    customers = await api('/Customers?$filter=isActive eq true');
-    products  = await api('/Products?$filter=isActive eq true');
-
-    const sel = document.getElementById('fCustomer');
-    sel.innerHTML = customers.map(c => `<option value="${c.ID}">${c.name}</option>`).join('');
-    document.getElementById('fOrderDate').value = new Date().toISOString().split('T')[0];
-    document.getElementById('fNotes').value = '';
-    document.getElementById('lineItems').innerHTML = '';
-    addLineItem();
-    openModal('modalNewOrder');
-  } catch(e) { toast('Failed to load form data: ' + e.message, 'error'); }
-}
-
-let lineCount = 0;
-function addLineItem() {
-  const idx = lineCount++;
-  const opts = products.map(p => `<option value="${p.ID}" data-price="${p.unitPrice}">${p.name} (₹${fmt(p.unitPrice)})</option>`).join('');
-  const div = document.createElement('div');
-  div.style.cssText = 'display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:.5rem;align-items:end;margin-bottom:.5rem';
-  div.innerHTML = `
-    <div class="form-field"><label>Product</label><select class="li-product">${opts}</select></div>
-    <div class="form-field"><label>Qty</label><input type="number" class="li-qty" value="1" min="1"/></div>
-    <div class="form-field"><label>Discount %</label><input type="number" class="li-disc" value="0" min="0" max="100"/></div>
-    <button class="btn-danger btn-sm" style="height:34px;align-self:end" onclick="this.parentElement.remove()">✕</button>
-  `;
-  document.getElementById('lineItems').appendChild(div);
-}
-
-async function createOrder() {
-  const customerID = document.getElementById('fCustomer').value;
-  const orderDate  = document.getElementById('fOrderDate').value;
-  const notes      = document.getElementById('fNotes').value;
-
-  const itemRows = document.querySelectorAll('#lineItems > div');
-  if (!itemRows.length) { toast('Add at least one line item', 'error'); return; }
-
-  try {
-    // 1. Create Sales Order
-    const order = await api('/SalesOrders', {
-      method: 'POST',
-      body: { customer_ID: customerID, orderDate, notes },
-    });
-
-    // 2. Add line items
-    for (const row of itemRows) {
-      const productID = row.querySelector('.li-product').value;
-      const quantity  = parseInt(row.querySelector('.li-qty').value);
-      const discount  = parseFloat(row.querySelector('.li-disc').value) || 0;
-      const product   = products.find(p => p.ID === productID);
-      await api('/SalesOrderItems', {
-        method: 'POST',
-        body: { order_ID: order.ID, product_ID: productID, quantity, unitPrice: product.unitPrice, discount },
-      });
-    }
-
-    closeModal('modalNewOrder');
-    toast('Sales Order created successfully!');
-    loadOrders();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-// ── Modal helpers ─────────────────────────────────────────────────────────
-
-function openModal(id)  { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 // ── Init ──────────────────────────────────────────────────────────────────
 
