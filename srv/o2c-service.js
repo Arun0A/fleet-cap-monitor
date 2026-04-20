@@ -21,6 +21,10 @@ module.exports = cds.service.impl(async function (srv) {
   const { Customers, Products, SalesOrders, SalesOrderItems, Deliveries, Invoices } =
     srv.entities;
 
+  // Register in-process event handlers
+  const eventHandlers = require('./event-handlers');
+  eventHandlers.register(srv);
+
   // ── Security helpers (scope/role checks) ─────────────────────────────────
   /**
    * Extract scopes from the request (tries several common properties).
@@ -190,7 +194,38 @@ module.exports = cds.service.impl(async function (srv) {
     }
 
     await UPDATE(SalesOrders, orderID).with({ status: 'Confirmed' });
-    return SELECT.one.from(SalesOrders, orderID);
+    const updated = await SELECT.one.from(SalesOrders, orderID);
+
+    // Publish OrderConfirmed event: 1) in-process (srv.emit) 2) attempt external messaging
+    const payload = { orderID, orderNumber: updated.orderNumber, customer: updated.customer_ID };
+
+    try {
+      // in-process emission (will be handled by registered subscribers)
+      srv.emit('OrderConfirmed', payload);
+
+      // try to publish to an external messaging service (Event Mesh) if configured
+      try {
+        const messaging = await cds.connect.to('messaging');
+        if (messaging) {
+          if (typeof messaging.emit === 'function') {
+            await messaging.emit('OrderConfirmed', payload);
+          } else if (typeof messaging.publish === 'function') {
+            await messaging.publish('OrderConfirmed', payload);
+          } else if (typeof messaging.send === 'function') {
+            await messaging.send('OrderConfirmed', payload);
+          }
+        }
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log('[EVENT] external messaging not available, continuing (dev fallback)');
+      }
+    } catch (e) {
+      // do not block confirmOrder success on event delivery failures
+      // eslint-disable-next-line no-console
+      console.error('[EVENT] failed to publish OrderConfirmed', e && e.message);
+    }
+
+    return updated;
   });
 
   // ── Bound Action: SalesOrders / cancelOrder ───────────────────────────────

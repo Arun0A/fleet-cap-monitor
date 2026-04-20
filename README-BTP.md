@@ -38,3 +38,14 @@ Next steps I can take for you (pick one):
 - Add `xs-security.json` mapping into `package.json`/`mta.yaml` for automated binding.
 - Scaffold a small Role-guard in `srv/o2c-service.cds` or in a server-side handler to check scopes.
 - Add CAP event handlers to publish `OrderConfirmed` events and subscribe to them to create deliveries/invoices.
+
+Events / Event Mesh
+- The project now publishes an `OrderConfirmed` event when an order is confirmed. The behavior is:
+	- In-process: `srv.emit('OrderConfirmed', payload)` is emitted and handled by an in-process subscriber.
+	- External (BTP/Event Mesh): the app will attempt to `cds.connect.to('messaging')` and call `emit/publish` if the messaging service is bound.
+	- Local dev fallback: when no external messaging is configured the in-process subscriber still runs so the flow remains functional.
+
+Testing events locally
+- By default the dev server allows in-process events. To simulate production enforcement, set `CDS_ENV=cf` when starting.
+- To test external messaging in a BTP deployment, bind an Event Mesh instance and ensure the `messaging` connection name is available in `vcap_services` (or service bindings).
+
