@@ -47,12 +47,13 @@ service O2CService @(path: '/api/o2c') {
     orderID     : UUID,
     plannedDate : Date,
     carrier     : String
-  ) returns o2c.Deliveries;
+  ) returns Deliveries;
 
   /** Generate an invoice for a Delivered Sales Order */
   action generateInvoice(
     orderID : UUID
-  ) returns o2c.Invoices;
+  ) returns Invoices;
+
 
   // ── Analytics Queries ─────────────────────────────────────────────────────
 
