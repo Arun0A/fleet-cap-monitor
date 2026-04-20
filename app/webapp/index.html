@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>O2C — Order-to-Cash | SAP BTP</title>
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "72", "72full", Arial, Helvetica, sans-serif;
+      background: #f2f2f2;
+      color: #32363a;
+      font-size: 14px;
+    }
+
+    /* ── Shell Header ─────────────────────────────────────── */
+    .shell-header {
+      background: #0a6ed1;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+      height: 48px;
+      gap: 1rem;
+    }
+    .shell-header .logo { font-size: 1.1rem; font-weight: 700; letter-spacing: .5px; }
+    .shell-header .app-title { font-size: 0.9rem; opacity: .85; }
+
+    /* ── Main layout ──────────────────────────────────────── */
+    .page { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+    h1.page-title { font-size: 1.4rem; font-weight: 600; margin-bottom: 1rem; color: #32363a; }
+
+    /* ── Stat cards ───────────────────────────────────────── */
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .stat-card {
+      background: #fff;
+      border-radius: 4px;
+      padding: 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.1);
+      border-left: 4px solid #0a6ed1;
+    }
+    .stat-card .label { font-size: .75rem; color: #6a6d70; text-transform: uppercase; letter-spacing: .4px; }
+    .stat-card .value { font-size: 1.8rem; font-weight: 700; color: #0a6ed1; margin-top: .25rem; }
+    .stat-card.green  { border-color: #107e3e; } .stat-card.green .value { color: #107e3e; }
+    .stat-card.orange { border-color: #e9730c; } .stat-card.orange .value { color: #e9730c; }
+    .stat-card.red    { border-color: #bb0000; } .stat-card.red .value { color: #bb0000; }
+
+    /* ── Panel / Card ─────────────────────────────────────── */
+    .panel { background: #fff; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,.1); margin-bottom: 1.5rem; }
+    .panel-header {
+      padding: .75rem 1rem;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem;
+    }
+    .panel-header h2 { font-size: 1rem; font-weight: 600; }
+    .panel-body { padding: 1rem; }
+
+    /* ── Toolbar ──────────────────────────────────────────── */
+    .toolbar { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+    /* ── Buttons ──────────────────────────────────────────── */
+    button {
+      padding: .4rem .9rem;
+      border-radius: 4px;
+      border: 1px solid #0a6ed1;
+      cursor: pointer;
+      font-size: .85rem;
+      transition: background .15s;
+    }
+    .btn-primary { background: #0a6ed1; color: #fff; }
+    .btn-primary:hover { background: #085caf; }
+    .btn-secondary { background: #fff; color: #0a6ed1; }
+    .btn-secondary:hover { background: #e5f0fb; }
+    .btn-success { background: #107e3e; color: #fff; border-color: #107e3e; }
+    .btn-success:hover { background: #0b5e2e; }
+    .btn-danger  { background: #bb0000; color: #fff; border-color: #bb0000; }
+    .btn-danger:hover  { background: #8f0000; }
+    .btn-sm { padding: .25rem .6rem; font-size: .78rem; }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+
+    /* ── Table ────────────────────────────────────────────── */
+    .tbl-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    th { background: #f7f7f7; text-align: left; padding: .55rem .75rem; border-bottom: 2px solid #e5e5e5; white-space: nowrap; font-weight: 600; color: #32363a; }
+    td { padding: .5rem .75rem; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+    tr:hover td { background: #f2f7fd; }
+
+    /* ── Badges ───────────────────────────────────────────── */
+    .badge {
+      display: inline-block;
+      padding: .15rem .55rem;
+      border-radius: 10px;
+      font-size: .75rem;
+      font-weight: 600;
+    }
+    .badge-draft     { background: #e5e5e5; color: #6a6d70; }
+    .badge-confirmed { background: #d1e8ff; color: #0a6ed1; }
+    .badge-delivered { background: #fff3d3; color: #9e6007; }
+    .badge-invoiced  { background: #e8f9e8; color: #107e3e; }
+    .badge-paid      { background: #107e3e; color: #fff; }
+    .badge-cancelled { background: #ffd2d2; color: #bb0000; }
+    .badge-pending   { background: #e5e5e5; color: #6a6d70; }
+    .badge-shipped   { background: #d1e8ff; color: #0a6ed1; }
+
+    /* ── Form ─────────────────────────────────────────────── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-field { display: flex; flex-direction: column; gap: .3rem; }
+    .form-field label { font-size: .8rem; font-weight: 600; color: #6a6d70; }
+    .form-field input, .form-field select, .form-field textarea {
+      padding: .4rem .6rem;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: .9rem;
+      width: 100%;
+    }
+    .form-field input:focus, .form-field select:focus { outline: 2px solid #0a6ed1; border-color: transparent; }
+    .form-actions { margin-top: 1rem; display: flex; gap: .5rem; }
+
+    /* ── Modal ────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.4); z-index: 1000;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #fff; border-radius: 6px; width: min(600px, 95vw);
+      max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,.25);
+    }
+    .modal-header {
+      padding: 1rem 1.25rem; border-bottom: 1px solid #e5e5e5;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-header h3 { font-size: 1.05rem; font-weight: 600; }
+    .modal-close { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #6a6d70; padding: 0; }
+    .modal-body { padding: 1.25rem; }
+
+    /* ── Toast ────────────────────────────────────────────── */
+    #toast {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999;
+      padding: .75rem 1.25rem; border-radius: 6px; font-size: .88rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.2); display: none;
+      max-width: 360px; animation: slideIn .25s ease;
+    }
+    #toast.success { background: #107e3e; color: #fff; }
+    #toast.error   { background: #bb0000; color: #fff; }
+    @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* ── Process steps ────────────────────────────────────── */
+    .steps { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin-bottom: 1rem; }
+    .step {
+      flex: 1; text-align: center; padding: .5rem .25rem; font-size: .75rem;
+      background: #f7f7f7; border: 1px solid #e5e5e5; position: relative; font-weight: 600;
+    }
+    .step.active { background: #0a6ed1; color: #fff; }
+    .step + .step::before {
+      content: ''; position: absolute; left: -1px; top: 50%; transform: translateY(-50%);
+      border: 8px solid transparent; border-left-color: #e5e5e5;
+    }
+    .step.active + .step::before { border-left-color: #0a6ed1; }
+
+    /* ── Empty state ──────────────────────────────────────── */
+    .empty { text-align: center; padding: 2.5rem 1rem; color: #6a6d70; font-size: .9rem; }
+
+    /* ── Tab nav ──────────────────────────────────────────── */
+    .tabs { display: flex; border-bottom: 2px solid #e5e5e5; margin-bottom: 1rem; }
+    .tab-btn {
+      padding: .6rem 1.2rem; border: none; background: none; cursor: pointer;
+      font-size: .9rem; color: #6a6d70; border-bottom: 2px solid transparent; margin-bottom: -2px;
+    }
+    .tab-btn.active { color: #0a6ed1; border-bottom-color: #0a6ed1; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<!-- Shell Header -->
+<header class="shell-header">
+  <span class="logo">SAP BTP</span>
+  <span style="opacity:.4">|</span>
+  <span class="app-title">Order-to-Cash Management</span>
+</header>
+
+<div class="page">
+  <h1 class="page-title">O2C Dashboard</h1>
+
+  <!-- O2C Process Steps -->
+  <div class="steps">
+    <div class="step active">1. Sales Order</div>
+    <div class="step">2. Confirm</div>
+    <div class="step">3. Delivery</div>
+    <div class="step">4. Invoice</div>
+    <div class="step">5. Payment</div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="stat-grid" id="kpiCards">
+    <div class="stat-card"><div class="label">Draft</div><div class="value" id="kpi-Draft">—</div></div>
+    <div class="stat-card"><div class="label">Confirmed</div><div class="value" id="kpi-Confirmed">—</div></div>
+    <div class="stat-card orange"><div class="label">Delivered</div><div class="value" id="kpi-Delivered">—</div></div>
+    <div class="stat-card"><div class="label">Invoiced</div><div class="value" id="kpi-Invoiced">—</div></div>
+    <div class="stat-card green"><div class="label">Paid</div><div class="value" id="kpi-Paid">—</div></div>
+    <div class="stat-card red"><div class="label">Cancelled</div><div class="value" id="kpi-Cancelled">—</div></div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('orders')">Sales Orders</button>
+    <button class="tab-btn" onclick="showTab('deliveries')">Deliveries</button>
+    <button class="tab-btn" onclick="showTab('invoices')">Invoices</button>
+    <button class="tab-btn" onclick="showTab('master')">Master Data</button>
+  </div>
+
+  <!-- Sales Orders Tab -->
+  <div id="tab-orders">
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Sales Orders</h2>
+        <div class="toolbar">
+          <button class="btn-primary btn-sm" onclick="openNewOrderModal()">+ New Order</button>
+          <button class="btn-secondary btn-sm" onclick="loadOrders()">↻ Refresh</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th>Order #</th><th>Date</th><th>Customer</th>
+              <th>Net (₹)</th><th>Tax (₹)</th><th>Total (₹)</th>
+              <th>Status</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="ordersBody"><tr><td colspan="8" class="empty">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deliveries Tab -->
+  <div id="tab-deliveries" style="display:none">
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Deliveries</h2>
+        <button class="btn-secondary btn-sm" onclick="loadDeliveries()">↻ Refresh</button>
+      </div>
+      <div class="panel-body">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th>Delivery ID</th><th>Order #</th><th>Planned Date</th>
+              <th>Actual Date</th><th>Carrier</th><th>Tracking #</th><th>Status</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="deliveriesBody"><tr><td colspan="8" class="empty">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invoices Tab -->
+  <div id="tab-invoices" style="display:none">
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Invoices</h2>
+        <button class="btn-secondary btn-sm" onclick="loadInvoices()">↻ Refresh</button>
+      </div>
+      <div class="panel-body">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th>Invoice #</th><th>Order #</th><th>Invoice Date</th>
+              <th>Due Date</th><th>Net (₹)</th><th>Tax (₹)</th><th>Total (₹)</th>
+              <th>Paid?</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="invoicesBody"><tr><td colspan="9" class="empty">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Master Data Tab -->
+  <div id="tab-master" style="display:none">
+    <div class="panel">
+      <div class="panel-header"><h2>Customers</h2></div>
+      <div class="panel-body">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>City</th><th>Credit Limit (₹)</th></tr></thead>
+            <tbody id="customersBody"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><h2>Products</h2></div>
+      <div class="panel-body">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Code</th><th>Name</th><th>Unit Price (₹)</th><th>GST %</th><th>Stock</th></tr></thead>
+            <tbody id="productsBody"><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal: New Order ─────────────────────────────────────────── -->
+<div class="modal-overlay" id="modalNewOrder">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Create Sales Order</h3>
+      <button class="modal-close" onclick="closeModal('modalNewOrder')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Customer *</label>
+          <select id="fCustomer"></select>
+        </div>
+        <div class="form-field">
+          <label>Order Date *</label>
+          <input type="date" id="fOrderDate"/>
+        </div>
+        <div class="form-field" style="grid-column:span 2">
+          <label>Notes</label>
+          <textarea id="fNotes" rows="2"></textarea>
+        </div>
+      </div>
+      <h4 style="margin:1rem 0 .5rem; font-size:.9rem;">Line Items</h4>
+      <div id="lineItems"></div>
+      <button class="btn-secondary btn-sm" style="margin-top:.5rem" onclick="addLineItem()">+ Add Item</button>
+      <div class="form-actions">
+        <button class="btn-primary" onclick="createOrder()">Create Order</button>
+        <button class="btn-secondary" onclick="closeModal('modalNewOrder')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+const API = '/api/o2c';
+
+// ── Utilities ─────────────────────────────────────────────────────────────
+
+const fmt  = n => n != null ? Number(n).toLocaleString('en-IN', {maximumFractionDigits:2}) : '—';
+const date = s => s ? new Date(s).toLocaleDateString('en-IN') : '—';
+
+function badge(status) {
+  const cls = status ? status.toLowerCase() : 'draft';
+  return `<span class="badge badge-${cls}">${status || '—'}</span>`;
+}
+
+function toast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = type; el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 3500);
+}
+
+async function api(path, opts = {}) {
+  const res = await fetch(API + path, {
+    headers: { 'Content-Type': 'application/json' },
+    ...opts,
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data?.error?.message || `HTTP ${res.status}`);
+  return data.value ?? data;
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────
+
+const TABS = ['orders','deliveries','invoices','master'];
+function showTab(name) {
+  TABS.forEach(t => {
+    document.getElementById(`tab-${t}`).style.display = t === name ? '' : 'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', TABS[i] === name);
+  });
+  if (name === 'orders')     loadOrders();
+  if (name === 'deliveries') loadDeliveries();
+  if (name === 'invoices')   loadInvoices();
+  if (name === 'master')     { loadCustomers(); loadProducts(); }
+}
+
+// ── KPI ───────────────────────────────────────────────────────────────────
+
+async function loadKPIs() {
+  try {
+    const rows = await api('/getOrderSummary()');
+    ['Draft','Confirmed','Delivered','Invoiced','Paid','Cancelled'].forEach(s => {
+      const el = document.getElementById(`kpi-${s}`);
+      const row = rows.find(r => r.status === s);
+      if (el) el.textContent = row ? row.count : 0;
+    });
+  } catch(e) { console.warn('KPI load failed', e); }
+}
+
+// ── Sales Orders ──────────────────────────────────────────────────────────
+
+async function loadOrders() {
+  try {
+    const orders = await api('/SalesOrders?$expand=customer&$orderby=createdAt desc');
+    const tbody  = document.getElementById('ordersBody');
+    if (!orders.length) { tbody.innerHTML = `<tr><td colspan="8" class="empty">No orders yet</td></tr>`; return; }
+    tbody.innerHTML = orders.map(o => `
+      <tr>
+        <td><b>${o.orderNumber}</b></td>
+        <td>${date(o.orderDate)}</td>
+        <td>${o.customer?.name || '—'}</td>
+        <td style="text-align:right">${fmt(o.netAmount)}</td>
+        <td style="text-align:right">${fmt(o.taxAmount)}</td>
+        <td style="text-align:right"><b>${fmt(o.totalAmount)}</b></td>
+        <td>${badge(o.status)}</td>
+        <td>${orderActions(o)}</td>
+      </tr>`).join('');
+    loadKPIs();
+  } catch(e) { toast('Failed to load orders: ' + e.message, 'error'); }
+}
+
+function orderActions(o) {
+  const id = o.ID;
+  let btns = '';
+  if (o.status === 'Draft')     btns += `<button class="btn-success btn-sm" onclick="confirmOrder('${id}')">Confirm</button> <button class="btn-danger btn-sm" onclick="cancelOrder('${id}')">Cancel</button>`;
+  if (o.status === 'Confirmed') btns += `<button class="btn-primary btn-sm" onclick="createDelivery('${id}')">Create Delivery</button> <button class="btn-danger btn-sm" onclick="cancelOrder('${id}')">Cancel</button>`;
+  if (o.status === 'Delivered') btns += `<button class="btn-primary btn-sm" onclick="generateInvoice('${id}')">Generate Invoice</button>`;
+  return btns || '—';
+}
+
+async function confirmOrder(id) {
+  try {
+    await api(`/SalesOrders(${id})/O2CService.confirmOrder`, { method: 'POST', body: {} });
+    toast('Order confirmed!'); loadOrders();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function cancelOrder(id) {
+  if (!confirm('Cancel this order?')) return;
+  try {
+    await api(`/SalesOrders(${id})/O2CService.cancelOrder`, { method: 'POST', body: {} });
+    toast('Order cancelled.'); loadOrders();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function createDelivery(orderID) {
+  const carrier = prompt('Carrier name (optional):', 'Standard Courier');
+  if (carrier === null) return;
+  try {
+    await api('/createDelivery', { method: 'POST', body: { orderID, carrier } });
+    toast('Delivery created!'); loadOrders(); showTab('deliveries');
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function generateInvoice(orderID) {
+  try {
+    await api('/generateInvoice', { method: 'POST', body: { orderID } });
+    toast('Invoice generated!'); loadOrders(); showTab('invoices');
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+// ── Deliveries ────────────────────────────────────────────────────────────
+
+async function loadDeliveries() {
+  try {
+    const data  = await api('/Deliveries?$expand=order($expand=customer)&$orderby=createdAt desc');
+    const tbody = document.getElementById('deliveriesBody');
+    if (!data.length) { tbody.innerHTML = `<tr><td colspan="8" class="empty">No deliveries yet</td></tr>`; return; }
+    tbody.innerHTML = data.map(d => `
+      <tr>
+        <td><code style="font-size:.75rem">${d.ID.slice(0,8)}…</code></td>
+        <td>${d.order?.orderNumber || '—'}</td>
+        <td>${date(d.plannedDate)}</td>
+        <td>${date(d.actualDate)}</td>
+        <td>${d.carrier || '—'}</td>
+        <td>${d.trackingNo || '—'}</td>
+        <td>${badge(d.status)}</td>
+        <td>${deliveryActions(d)}</td>
+      </tr>`).join('');
+  } catch(e) { toast('Failed to load deliveries: ' + e.message, 'error'); }
+}
+
+function deliveryActions(d) {
+  if (d.status === 'Pending')  return `<button class="btn-primary btn-sm" onclick="markShipped('${d.ID}')">Mark Shipped</button>`;
+  if (d.status === 'Shipped')  return `<button class="btn-success btn-sm" onclick="markDelivered('${d.ID}')">Mark Delivered</button>`;
+  return '—';
+}
+
+async function markShipped(id) {
+  const trackingNo = prompt('Enter tracking number:', 'TRK-' + Date.now());
+  if (trackingNo === null) return;
+  try {
+    await api(`/Deliveries(${id})/O2CService.markShipped`, { method: 'POST', body: { trackingNo, carrier: 'BlueDart' } });
+    toast('Marked as Shipped!'); loadDeliveries();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function markDelivered(id) {
+  try {
+    await api(`/Deliveries(${id})/O2CService.markDelivered`, { method: 'POST', body: {} });
+    toast('Marked as Delivered!'); loadDeliveries();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+// ── Invoices ──────────────────────────────────────────────────────────────
+
+async function loadInvoices() {
+  try {
+    const data  = await api('/Invoices?$expand=order&$orderby=createdAt desc');
+    const tbody = document.getElementById('invoicesBody');
+    if (!data.length) { tbody.innerHTML = `<tr><td colspan="9" class="empty">No invoices yet</td></tr>`; return; }
+    tbody.innerHTML = data.map(inv => `
+      <tr>
+        <td><b>${inv.invoiceNumber}</b></td>
+        <td>${inv.order?.orderNumber || '—'}</td>
+        <td>${date(inv.invoiceDate)}</td>
+        <td>${date(inv.dueDate)}</td>
+        <td style="text-align:right">${fmt(inv.netAmount)}</td>
+        <td style="text-align:right">${fmt(inv.taxAmount)}</td>
+        <td style="text-align:right"><b>${fmt(inv.totalAmount)}</b></td>
+        <td>${inv.isPaid ? badge('Paid') : badge('Pending')}</td>
+        <td>${inv.isPaid ? '—' : `<button class="btn-success btn-sm" onclick="recordPayment('${inv.ID}')">Record Payment</button>`}</td>
+      </tr>`).join('');
+  } catch(e) { toast('Failed to load invoices: ' + e.message, 'error'); }
+}
+
+async function recordPayment(id) {
+  const ref = prompt('Payment reference (bank transfer, cheque no., etc.):', '');
+  if (ref === null) return;
+  try {
+    await api(`/Invoices(${id})/O2CService.recordPayment`, { method: 'POST', body: { paymentRef: ref } });
+    toast('Payment recorded!'); loadInvoices(); loadKPIs();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+// ── Master Data ───────────────────────────────────────────────────────────
+
+async function loadCustomers() {
+  try {
+    const data  = await api('/Customers');
+    const tbody = document.getElementById('customersBody');
+    tbody.innerHTML = data.map(c => `
+      <tr><td>${c.name}</td><td>${c.email}</td><td>${c.city}</td><td style="text-align:right">₹${fmt(c.creditLimit)}</td></tr>
+    `).join('');
+  } catch(e) {}
+}
+
+async function loadProducts() {
+  try {
+    const data  = await api('/Products');
+    const tbody = document.getElementById('productsBody');
+    tbody.innerHTML = data.map(p => `
+      <tr><td>${p.code}</td><td>${p.name}</td><td style="text-align:right">₹${fmt(p.unitPrice)}</td><td>${p.taxRate}%</td><td>${p.stockQty}</td></tr>
+    `).join('');
+  } catch(e) {}
+}
+
+// ── New Order Modal ───────────────────────────────────────────────────────
+
+let customers = [], products = [];
+
+async function openNewOrderModal() {
+  try {
+    customers = await api('/Customers?$filter=isActive eq true');
+    products  = await api('/Products?$filter=isActive eq true');
+
+    const sel = document.getElementById('fCustomer');
+    sel.innerHTML = customers.map(c => `<option value="${c.ID}">${c.name}</option>`).join('');
+    document.getElementById('fOrderDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('fNotes').value = '';
+    document.getElementById('lineItems').innerHTML = '';
+    addLineItem();
+    openModal('modalNewOrder');
+  } catch(e) { toast('Failed to load form data: ' + e.message, 'error'); }
+}
+
+let lineCount = 0;
+function addLineItem() {
+  const idx = lineCount++;
+  const opts = products.map(p => `<option value="${p.ID}" data-price="${p.unitPrice}">${p.name} (₹${fmt(p.unitPrice)})</option>`).join('');
+  const div = document.createElement('div');
+  div.style.cssText = 'display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:.5rem;align-items:end;margin-bottom:.5rem';
+  div.innerHTML = `
+    <div class="form-field"><label>Product</label><select class="li-product">${opts}</select></div>
+    <div class="form-field"><label>Qty</label><input type="number" class="li-qty" value="1" min="1"/></div>
+    <div class="form-field"><label>Discount %</label><input type="number" class="li-disc" value="0" min="0" max="100"/></div>
+    <button class="btn-danger btn-sm" style="height:34px;align-self:end" onclick="this.parentElement.remove()">✕</button>
+  `;
+  document.getElementById('lineItems').appendChild(div);
+}
+
+async function createOrder() {
+  const customerID = document.getElementById('fCustomer').value;
+  const orderDate  = document.getElementById('fOrderDate').value;
+  const notes      = document.getElementById('fNotes').value;
+
+  const itemRows = document.querySelectorAll('#lineItems > div');
+  if (!itemRows.length) { toast('Add at least one line item', 'error'); return; }
+
+  try {
+    // 1. Create Sales Order
+    const order = await api('/SalesOrders', {
+      method: 'POST',
+      body: { customer_ID: customerID, orderDate, notes },
+    });
+
+    // 2. Add line items
+    for (const row of itemRows) {
+      const productID = row.querySelector('.li-product').value;
+      const quantity  = parseInt(row.querySelector('.li-qty').value);
+      const discount  = parseFloat(row.querySelector('.li-disc').value) || 0;
+      const product   = products.find(p => p.ID === productID);
+      await api('/SalesOrderItems', {
+        method: 'POST',
+        body: { order_ID: order.ID, product_ID: productID, quantity, unitPrice: product.unitPrice, discount },
+      });
+    }
+
+    closeModal('modalNewOrder');
+    toast('Sales Order created successfully!');
+    loadOrders();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+// ── Modal helpers ─────────────────────────────────────────────────────────
+
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ── Init ──────────────────────────────────────────────────────────────────
+
+loadOrders();
+loadKPIs();
+</script>
+</body>
+</html>

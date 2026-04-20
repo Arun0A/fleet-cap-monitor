@@ -1,0 +1,7 @@
+ID,code,name,description,unitPrice,taxRate,stockQty,unit,isActive
+22222222-0000-0000-0000-000000000001,PROD-001,Laptop Pro 15,High-performance business laptop with 16GB RAM and 512GB SSD,75000,18,50,EA,true
+22222222-0000-0000-0000-000000000002,PROD-002,Wireless Mouse,Ergonomic wireless mouse with long battery life,1500,18,200,EA,true
+22222222-0000-0000-0000-000000000003,PROD-003,Mechanical Keyboard,RGB mechanical keyboard with blue switches,4500,18,150,EA,true
+22222222-0000-0000-0000-000000000004,PROD-004,27-inch Monitor,4K IPS monitor with 99% sRGB color accuracy,25000,18,80,EA,true
+22222222-0000-0000-0000-000000000005,PROD-005,USB-C Hub 7-in-1,Multi-port USB-C hub with HDMI and SD card reader,2500,18,300,EA,true
+22222222-0000-0000-0000-000000000006,PROD-006,Noise Cancelling Headset,Over-ear noise cancelling headset with mic,8000,18,120,EA,true

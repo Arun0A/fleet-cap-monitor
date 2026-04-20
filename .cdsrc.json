@@ -1,0 +1,20 @@
+{
+  "build": {
+    "target": "gen",
+    "modules": [
+      {
+        "for": "nodejs",
+        "src": "srv"
+      },
+      {
+        "for": "db",
+        "src": "db"
+      }
+    ]
+  },
+  "log": {
+    "levels": {
+      "sql": "debug"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+ID,name,email,phone,city,country,creditLimit,isActive
+11111111-0000-0000-0000-000000000001,Arjun Electronics Pvt Ltd,arjun@example.com,+91-9876540001,Pune,India,1000000,true
+11111111-0000-0000-0000-000000000002,Sneha Retail Solutions,sneha@example.com,+91-9876540002,Mumbai,India,750000,true
+11111111-0000-0000-0000-000000000003,Rohan Tech Distributors,rohan@example.com,+91-9876540003,Bengaluru,India,500000,true
+11111111-0000-0000-0000-000000000004,Priya Traders,priya@example.com,+91-9876540004,Hyderabad,India,250000,true
+11111111-0000-0000-0000-000000000005,Ankit Global Imports,ankit@example.com,+91-9876540005,Delhi,India,2000000,true
