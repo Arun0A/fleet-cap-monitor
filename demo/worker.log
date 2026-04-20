@@ -1,0 +1,885 @@
+
+> fleet-workorder-worker@1.0.0 start
+> node index.js
+
+[worker] connected to CDS
+[worker] no messaging adapter available, will fallback to polling
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+[worker] poll error SQLITE_CANTOPEN: unable to open database file
+rts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts
+[worker] poll error SQLITE_ERROR: no such table: fleet_Alerts in: 
+SELECT * FROM fleet_Alerts

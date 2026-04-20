@@ -36,7 +36,7 @@ service FleetService @(path: '/api/fleet') {
 
   /** Ingest raw telemetry from a device (unbound event) */
   action ingestTelemetry(
-    deviceID : UUID,
+    deviceID : String,
     metric   : String,
     value    : Decimal,
     unit     : String

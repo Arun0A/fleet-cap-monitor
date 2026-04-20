@@ -1,0 +1,119 @@
+ 
+cds serve all --with-mocks --in-memory 
+live reload enabled for browsers 
+
+        ___________________________
+ 
+[cds] - loaded model from 2 file(s):
+
+  srv/o2c-service.cds
+  db/schema.cds
+[cds] - connect using bindings from: { registry: '~/.cds-services.json' }
+[cds] - connect to db > sqlite { url: ':memory:' }
+/> successfully deployed to in-memory database. 
+
+[cds] - using auth strategy { kind: 'mocked', impl: 'node_modules/@sap/cds/lib/auth/basic-auth' } 
+
+[cds] - serving FleetService { impl: 'srv/o2c-service.js', path: '/api/fleet' }
+
+[cds] - server listening on { url: 'http://localhost:4004' }
+[cds] - launched at 4/20/2026, 11:12:24 PM, version: 7.9.5, in: 384.253ms
+[odata] - POST /api/fleet/registerDevice 
+[SEC] No scopes found - development mode bypass for Device.manage
+[odata] - POST /api/fleet/ingestTelemetry 
+[SEC] No scopes found - development mode bypass for Telemetry.ingest
+[odata] - GET /api/fleet/Devices 
+[odata] - GET /api/fleet/getFleetSummary() 
+[cds] - UriSemanticError: 'getFleetSummary' is not an entity set, a singleton, an action import, or a function import
+    at ResourcePathParser.parse (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/ResourcePathParser.js:157:11)
+    at UriParser._parseResourcePath (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:324:55)
+    at UriParser._parseRelativeUri (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:272:17)
+    at UriParser.parseRelativeUri (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:162:31)
+    at UriParserCommand.execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/UriParserCommand.js:34:37)
+    at CommandExecutor._execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:71:17)
+    at /home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:81:18
+    at OdataVersionValidationCommand.execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/OdataVersionValidationCommand.js:37:5)
+    at CommandExecutor._execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:71:17)
+    at /home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:81:18 {
+  id: '1061308',
+  level: 'WARNING',
+  timestamp: 1776706953520
+}
+[odata] - GET /api/fleet/getFleetSummary() 
+[cds] - UriSemanticError: 'getFleetSummary' is not an entity set, a singleton, an action import, or a function import
+    at ResourcePathParser.parse (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/ResourcePathParser.js:157:11)
+    at UriParser._parseResourcePath (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:324:55)
+    at UriParser._parseRelativeUri (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:272:17)
+    at UriParser.parseRelativeUri (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:162:31)
+    at UriParserCommand.execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/UriParserCommand.js:34:37)
+    at CommandExecutor._execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:71:17)
+    at /home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:81:18
+    at OdataVersionValidationCommand.execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/OdataVersionValidationCommand.js:37:5)
+    at CommandExecutor._execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:71:17)
+    at /home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:81:18 {
+  id: '1061308',
+  level: 'WARNING',
+  timestamp: 1776706953582
+}
+[odata] - GET /api/fleet/Alerts?$orderby=createdAt desc 
+[odata] - GET /api/fleet/Devices 
+[odata] - GET /api/fleet/getFleetSummary() 
+[cds] - UriSemanticError: 'getFleetSummary' is not an entity set, a singleton, an action import, or a function import
+    at ResourcePathParser.parse (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/ResourcePathParser.js:157:11)
+    at UriParser._parseResourcePath (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:324:55)
+    at UriParser._parseRelativeUri (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:272:17)
+    at UriParser.parseRelativeUri (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:162:31)
+    at UriParserCommand.execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/UriParserCommand.js:34:37)
+    at CommandExecutor._execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:71:17)
+    at /home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:81:18
+    at OdataVersionValidationCommand.execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/OdataVersionValidationCommand.js:37:5)
+    at CommandExecutor._execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:71:17)
+    at /home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:81:18 {
+  id: '1061308',
+  level: 'WARNING',
+  timestamp: 1776706956714
+}
+[odata] - GET /api/fleet/WorkOrders?$orderby=createdAt desc 
+[odata] - GET /api/fleet/Alerts?$orderby=createdAt desc 
+[odata] - GET /api/fleet/Devices 
+[odata] - GET /api/fleet/getFleetSummary() 
+[cds] - UriSemanticError: 'getFleetSummary' is not an entity set, a singleton, an action import, or a function import
+    at ResourcePathParser.parse (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/ResourcePathParser.js:157:11)
+    at UriParser._parseResourcePath (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:324:55)
+    at UriParser._parseRelativeUri (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:272:17)
+    at UriParser.parseRelativeUri (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:162:31)
+    at UriParserCommand.execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/UriParserCommand.js:34:37)
+    at CommandExecutor._execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:71:17)
+    at /home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:81:18
+    at OdataVersionValidationCommand.execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/OdataVersionValidationCommand.js:37:5)
+    at CommandExecutor._execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:71:17)
+    at /home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:81:18 {
+  id: '1061308',
+  level: 'WARNING',
+  timestamp: 1776706962638
+}
+[odata] - GET /api/fleet/Alerts?$orderby=createdAt desc 
+[odata] - GET /api/fleet/WorkOrders?$orderby=createdAt desc 
+[odata] - GET /api/fleet/Devices 
+[odata] - GET /api/fleet/getFleetSummary() 
+[cds] - UriSemanticError: 'getFleetSummary' is not an entity set, a singleton, an action import, or a function import
+    at ResourcePathParser.parse (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/ResourcePathParser.js:157:11)
+    at UriParser._parseResourcePath (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:324:55)
+    at UriParser._parseRelativeUri (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:272:17)
+    at UriParser.parseRelativeUri (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-commons/uri/UriParser.js:162:31)
+    at UriParserCommand.execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/UriParserCommand.js:34:37)
+    at CommandExecutor._execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:71:17)
+    at /home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:81:18
+    at OdataVersionValidationCommand.execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/OdataVersionValidationCommand.js:37:5)
+    at CommandExecutor._execute (/home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:71:17)
+    at /home/pegion/drived/Space/fleet-cap-project/fleet-cap-project/node_modules/@sap/cds/libx/_runtime/cds-services/adapter/odata-v4/okra/odata-server/invocation/CommandExecutor.js:81:18 {
+  id: '1061308',
+  level: 'WARNING',
+  timestamp: 1776707332042
+}
+[odata] - GET /api/fleet/Devices 
+[odata] - GET /api/fleet/Alerts 
+[odata] - GET /api/fleet/WorkOrders 
+[odata] - GET /api/fleet/Telemetry 
+
+[cds] - my watch has ended.  

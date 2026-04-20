@@ -8,7 +8,7 @@
     "watch":   "cds watch",
     "build":   "cds build",
     "test":    "jest --testTimeout=30000",
-    "deploy":  "cds deploy --to sqlite:o2c.db && cds-serve"
+    "deploy":  "cds deploy --to sqlite:./dev.db && cds-serve"
   },
   "dependencies": {
     "@sap/cds":     "^7",
@@ -29,7 +29,7 @@
       "db": {
         "kind": "sqlite",
         "credentials": {
-          "url": ":memory:"
+          "url": "sqlite:./dev.db"
         }
       }
     },

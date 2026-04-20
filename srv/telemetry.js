@@ -13,12 +13,16 @@ module.exports = {
     const Devices = (srv.entities && srv.entities.Devices) || 'fleet.Devices';
     const Alerts = (srv.entities && srv.entities.Alerts) || 'fleet.Alerts';
 
-    if (!data || !data.device_ID) throw new Error('ingestTelemetry requires device_ID and value');
+    if (!data) throw new Error('ingestTelemetry requires device identifier and value');
+    // support both `device_ID` (used internally) and `deviceID` (CDS action param)
+    if (!data.device_ID && !data.deviceID) throw new Error('ingestTelemetry requires device_ID or deviceID and value');
+    if (!data.value && data.value !== 0) throw new Error('ingestTelemetry requires numeric value');
+    const deviceId = data.device_ID || data.deviceID;
 
     const now = new Date().toISOString();
     const telemetry = {
       ID: cds.utils && cds.utils.uuid ? cds.utils.uuid() : ('' + Date.now()),
-      device_ID: data.device_ID,
+      device_ID: deviceId,
       metric: data.metric || 'unknown',
       value: data.value,
       recordedAt: now
@@ -28,7 +32,7 @@ module.exports = {
 
     // update device lastSeen if device exists
     try {
-      await cds.run(UPDATE(Devices).set({ lastSeen: now }).where({ ID: data.device_ID }));
+      await cds.run(UPDATE(Devices).set({ lastSeen: now }).where({ ID: deviceId }));
     } catch (e) {
       // ignore if device not present during dev
     }
@@ -71,6 +75,23 @@ module.exports = {
       } catch (e) {
         // don't fail telemetry ingestion if messaging is not available
         // console.warn('[telemetry] messaging publish failed', e && e.message);
+      }
+
+      // Also create a WorkOrder immediately (simple demo-friendly behavior)
+      try {
+        const WorkOrders = (srv.entities && srv.entities.WorkOrders) || 'fleet.WorkOrders';
+        const work = {
+          ID: cds.utils && cds.utils.uuid ? cds.utils.uuid() : ('' + (Date.now() + 2)),
+          workNo: 'WO-' + (new Date()).getTime(),
+          device_ID: alert.device_ID,
+          alert_ID: alert.ID,
+          status: 'Open',
+          description: `Auto-generated from alert ${alert.ID}`,
+          createdAt: now
+        };
+        await cds.run(INSERT.into(WorkOrders).entries(work));
+      } catch (e) {
+        // non-fatal for telemetry ingestion
       }
 
       return { telemetry, alert };

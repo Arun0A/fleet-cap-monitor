@@ -1,5 +1,12 @@
 const cds = require('@sap/cds');
 
+// By default the worker is disabled in the demo to avoid sqlite file-sharing issues.
+// Set the environment variable `ALLOW_WORKER=1` to enable worker behavior.
+if (!process.env.ALLOW_WORKER) {
+  console.log('[worker] worker disabled by default for local demo (set ALLOW_WORKER=1 to enable)');
+  process.exit(0);
+}
+
 // Simple workorder worker:
 // - Connects to the CDS model
 // - Polls for Alerts that don't have WorkOrders

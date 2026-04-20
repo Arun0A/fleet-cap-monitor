@@ -9,4 +9,15 @@
   "dependencies": {
     "@sap/cds": "^7"
   }
+  ,
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "sqlite:../dev.db"
+        }
+      }
+    }
+  }
 }
