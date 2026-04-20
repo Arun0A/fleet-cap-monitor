@@ -2,25 +2,25 @@
   "xsappname": "o2c-app",
   "tenant-mode": "dedicated",
   "scopes": [
-    { "name": "$XSAPPNAME.Order.manage", "description": "Manage orders (create/confirm/cancel)" },
-    { "name": "$XSAPPNAME.Invoice.manage", "description": "Manage invoices (generate/view)" },
-    { "name": "$XSAPPNAME.Delivery.manage", "description": "Manage deliveries" }
+    { "name": "$XSAPPNAME.Device.manage", "description": "Manage devices (register/update)" },
+    { "name": "$XSAPPNAME.Telemetry.ingest", "description": "Ingest telemetry from devices" },
+    { "name": "$XSAPPNAME.WorkOrder.manage", "description": "Manage work orders" }
   ],
   "role-templates": [
     {
-      "name": "OrderManager",
-      "description": "Can create and manage orders",
-      "scope-references": [ "$XSAPPNAME.Order.manage" ]
+      "name": "DeviceManager",
+      "description": "Can register and manage devices",
+      "scope-references": [ "$XSAPPNAME.Device.manage" ]
     },
     {
-      "name": "Finance",
-      "description": "Can generate and manage invoices",
-      "scope-references": [ "$XSAPPNAME.Invoice.manage" ]
+      "name": "Technician",
+      "description": "Can view and update assigned work orders",
+      "scope-references": [ "$XSAPPNAME.WorkOrder.manage" ]
     },
     {
-      "name": "DeliveryAgent",
-      "description": "Can update delivery status",
-      "scope-references": [ "$XSAPPNAME.Delivery.manage" ]
+      "name": "Ops",
+      "description": "Can ingest telemetry and manage work orders",
+      "scope-references": [ "$XSAPPNAME.Telemetry.ingest", "$XSAPPNAME.WorkOrder.manage" ]
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
-  "name": "o2c-invoice-worker",
+  "name": "fleet-workorder-worker",
   "version": "1.0.0",
-  "description": "Background worker: creates invoices for Delivered orders",
+  "description": "Background worker: creates work orders from alerts",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"

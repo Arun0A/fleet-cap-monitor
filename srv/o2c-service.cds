@@ -1,58 +1,52 @@
 /**
- * O2C OData Service Definition
- * Exposes all O2C entities and defines business action endpoints.
+ * Fleet OData Service Definition
+ * Exposes fleet entities and defines business action endpoints.
  */
 
-using o2c from '../db/schema';
+using fleet from '../db/schema';
 
-service O2CService @(path: '/api/o2c') {
+service FleetService @(path: '/api/fleet') {
 
   // ── Master Data ──────────────────────────────────────────────────────────
 
-  entity Customers   as projection on o2c.Customers;
-  entity Products    as projection on o2c.Products;
+  entity Devices      as projection on fleet.Devices;
+  entity Technicians  as projection on fleet.Technicians;
 
   // ── Transactional Entities ────────────────────────────────────────────────
 
-  entity SalesOrders as projection on o2c.SalesOrders
+  entity Telemetry    as projection on fleet.Telemetry;
+  entity Alerts       as projection on fleet.Alerts;
+  entity WorkOrders   as projection on fleet.WorkOrders
     actions {
-      /** Confirm a Draft order — moves it to 'Confirmed' status */
-      action confirmOrder() returns SalesOrders;
+      /** Assign a work order to a technician */
+      action assignWorkOrder(technicianID: UUID) returns WorkOrders;
 
-      /** Cancel an order (only if Draft or Confirmed) */
-      action cancelOrder() returns SalesOrders;
-    };
-
-  entity SalesOrderItems as projection on o2c.SalesOrderItems;
-
-  entity Deliveries  as projection on o2c.Deliveries
-    actions {
-      /** Mark a Pending delivery as Shipped */
-      action markShipped(trackingNo: String, carrier: String) returns Deliveries;
-
-      /** Mark a Shipped delivery as Delivered */
-      action markDelivered() returns Deliveries;
-    };
-
-  entity Invoices    as projection on o2c.Invoices
-    actions {
-      /** Record payment against an invoice */
-      action recordPayment(paymentRef: String) returns Invoices;
+      /** Mark a work order completed */
+      action completeWorkOrder() returns WorkOrders;
     };
 
   // ── Unbound Business Process Actions ─────────────────────────────────────
 
-  /** Create a delivery document for a Confirmed Sales Order */
-  action createDelivery(
-    orderID     : UUID,
-    plannedDate : Date,
-    carrier     : String
-  ) returns Deliveries;
+  /** Register a new device in the fleet */
+  action registerDevice(
+    deviceId : String,
+    name     : String,
+    model    : String
+  ) returns Devices;
 
-  /** Generate an invoice for a Delivered Sales Order */
-  action generateInvoice(
-    orderID : UUID
-  ) returns Invoices;
+  /** Ingest raw telemetry from a device (unbound event) */
+  action ingestTelemetry(
+    deviceID : UUID,
+    metric   : String,
+    value    : Decimal,
+    unit     : String
+  ) returns Telemetry;
+
+  /** Create a work order from an alert (unbound) */
+  action createWorkOrder(
+    alertID   : UUID,
+    description: String
+  ) returns WorkOrders;
 
 
   // ── Analytics Queries ─────────────────────────────────────────────────────

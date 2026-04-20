@@ -8,49 +8,48 @@ const cds = require('@sap/cds');
 
 module.exports = {
   register: function (srv) {
-    // In-process subscription: other parts of the app can emit 'OrderConfirmed'
-    srv.on('OrderConfirmed', async (msg) => {
+    // In-process subscription: other parts of the app can emit 'AlertCreated'
+    srv.on('AlertCreated', async (msg) => {
       try {
-        await module.exports.handleOrderConfirmed(msg, srv);
+        await module.exports.handleAlertCreated(msg, srv);
       } catch (e) {
         // eslint-disable-next-line no-console
-        console.error('[EVENT] error handling OrderConfirmed', e && e.message);
+        console.error('[EVENT] error handling AlertCreated', e && e.message);
       }
     });
   },
 
   /**
-   * Handle an OrderConfirmed event payload by creating a Delivery record
-   * for the confirmed sales order. This mirrors the behavior of the
-   * `createDelivery` action so the flow works whether triggered by events
+   * Handle an AlertCreated event payload by creating a WorkOrder record
+   * for the affected device. This mirrors the behavior of the
+   * `createWorkOrder` action so the flow works whether triggered by events
    * or by direct action calls.
    *
-   * payload: { orderID, plannedDate?, carrier? }
+   * payload: { alertID, deviceID }
    */
-  handleOrderConfirmed: async function (payload, srv) {
-    const { SalesOrders, Deliveries } = srv.entities;
+  handleAlertCreated: async function (payload, srv) {
+    const { Alerts, WorkOrders } = srv.entities;
 
-    const { orderID, plannedDate, carrier } = payload || {};
-    if (!orderID) throw new Error('OrderConfirmed payload missing orderID');
+    const { alertID, deviceID } = payload || {};
+    if (!alertID) throw new Error('AlertCreated payload missing alertID');
 
-    const order = await SELECT.one.from(SalesOrders, orderID);
-    if (!order) throw Object.assign(new Error('Sales Order not found'), { code: 404 });
-    if (order.status !== 'Confirmed') throw Object.assign(new Error('Only Confirmed orders can be delivered'), { code: 400 });
+    const alert = await SELECT.one.from(Alerts, alertID);
+    if (!alert) throw Object.assign(new Error('Alert not found'), { code: 404 });
 
-    const existing = await SELECT.one.from(Deliveries).where({ order_ID: orderID });
-    if (existing) throw Object.assign(new Error('A delivery document already exists for this order'), { code: 409 });
+    // avoid duplicate work orders for the same alert
+    const existing = await SELECT.one.from(WorkOrders).where({ alert_ID: alertID });
+    if (existing) return existing;
 
-    const delivery = {
-      ID:          cds.utils.uuid(),
-      order_ID:    orderID,
-      plannedDate: plannedDate || new Date(Date.now() + 3 * 24 * 3600 * 1000).toISOString().split('T')[0],
-      status:      'Pending',
-      carrier:     carrier || 'Standard Courier',
+    const work = {
+      ID: cds.utils.uuid(),
+      workNo: `WO-${Date.now()}`,
+      device_ID: deviceID,
+      alert_ID: alertID,
+      status: 'Open',
+      description: alert.description || 'Auto-generated from alert'
     };
 
-    await INSERT.into(Deliveries).entries(delivery);
-    await UPDATE(SalesOrders, orderID).with({ status: 'Delivered' });
-
-    return delivery;
+    await INSERT.into(WorkOrders).entries(work);
+    return work;
   }
 };
