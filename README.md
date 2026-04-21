@@ -95,6 +95,3 @@ Tests cover device registration, telemetry ingestion, alert generation, work-ord
 - Threshold breaches create alerts automatically
 - Alerts create work orders without duplication
 - Work orders can be assigned and completed through bound actions
-
-## Author
-KIIT Capstone Project — SAP BTP Program
