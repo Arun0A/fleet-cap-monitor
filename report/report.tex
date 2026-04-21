@@ -83,7 +83,7 @@
   {\color{sapblue}\rule{\linewidth}{2pt}}
   \vspace{6mm}
 
-  {\fontsize{22}{28}\bfseries\color{sapblue}
+  {\fontsize{19}{28}\bfseries\color{sapblue}
     Fleet Monitoring and Maintenance Automation\\[4pt]
     using SAP Cloud Application Programming Model}
   \vspace{4mm}
@@ -101,6 +101,7 @@
     \textbf{Course}       & SAP BTP \\[4pt]
     \textbf{Program}      & SAP Business Technology Platform (BTP) \\[4pt]
     \textbf{Submitted On} & \today \\
+    \textbf{Demonstration Video} &  \hyperlink{https://drive.google.com/drive/folders/1TasOnKf6-VUxPJmYSOrbMaqZwU5ZBUav?usp=sharing}{click-here}\\
   \end{tabular}
 
   \vspace{16mm}
@@ -280,10 +281,10 @@ The following process describes the operational workflow implemented in the proj
     arr/.style={-{Stealth[length=5pt]}, thick, color=sapblue}
 ]
   \node[state]              (device)     {Register\\Device};
-  \node[state, right=1.6cm of device]   (telemetry) {Ingest\\Telemetry};
-  \node[state, right=1.6cm of telemetry] (alert) {Create\\Alert};
-  \node[state, right=1.6cm of alert] (work)  {Open\\Work Order};
-  \node[state, right=1.6cm of work]  (complete)      {Assign /\\Complete};
+  \node[state, right=0.6cm of device]   (telemetry) {Ingest\\Telemetry};
+  \node[state, right=0.6cm of telemetry] (alert) {Create\\Alert};
+  \node[state, right=0.6cm of alert] (work)  {Open\\Work Order};
+  \node[state, right=0.6cm of work]  (complete)      {Assign /\\Complete};
 
   \draw[arr] (device) -- (telemetry);
   \draw[arr] (telemetry) -- (alert);
@@ -423,3 +424,4 @@ From an SAP BTP learning perspective, the project shows how CAP can be used not 
 \end{mdframed}
 
 \end{document}
+

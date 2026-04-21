@@ -1,5 +1,7 @@
 # Fleet Monitoring — SAP CAP Capstone Project
 
+**Video Demo:** [link](https://drive.google.com/drive/folders/1TasOnKf6-VUxPJmYSOrbMaqZwU5ZBUav?usp=sharing)
+
 ## Overview
 A full-stack **fleet monitoring** application built on the **SAP Cloud Application Programming (CAP)** model for SAP BTP.
 
